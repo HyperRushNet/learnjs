@@ -231,5 +231,25 @@
     <p class="usecase">Use cases: Structuring data, reusable methods, ...</p>
 </div>
 
+<div class="jsinfo">
+    <h3>Classes in classes</h3>
+    <code>
+        class outerClass {
+          static outerFunction(p1, p2){
+          return p1 + ", " + p2
+        }
+            static innerClass = class {
+             static innerFunction(p1,p2){
+            return p1 + p2
+            }
+           }
+         }
+
+        console.log(outerClass.outerFunction(1,2))
+        console.log(outerClass.innerClass.innerFunction(1,2))
+    </code>
+    <p class="usecase">Use cases: Structuring data even more.</p>
+</div>
+
 </body>
 </html>
