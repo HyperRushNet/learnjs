@@ -1,255 +1,346 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Information - Beginner Level</title>
-    <style>
-        body {
-            background: #121212;
-            color: #f5f5f5;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
-        .jsinfo {
-            padding: 20px;
-            border-radius: 15px;
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-            border-left: 6px solid #ff4d4d;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            margin-bottom: 25px;
-            transition: transform 0.2s;
-        }
-        .jsinfo:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
-        .jsinfo h3 { margin-top: 0; color: #ff6666; }
-        .jsinfo p { margin-bottom: 10px; }
-        code {
-            display: block;
-            white-space: pre-wrap;
-            background: #272727;
-            color: #f1f1f1;
-            padding: 12px;
-            border-radius: 8px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95em;
-            margin-bottom: 10px;
-            border-left: 4px solid #ff6666;
-            overflow-x: auto;
-        }
-        .usecase { font-style: italic; color: #ff9999; margin-top: -5px; margin-bottom: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Cheatsheet</title>
+<style>
+    :root {
+        --bg: #111;
+        --text: #eee;
+        --accent: #c88;
+        --dark: #1a1a1a;
+        --border: #333;
+    }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: Consolas, Monaco, 'Courier New', monospace;
+        margin: 0;
+        padding: 20px;
+        padding-top: 80px;
+        scroll-behavior: smooth;
+        line-height: 1.6;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+    }
+    h1, h2 {
+        margin-top: 50px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+        color: #fff;
+    }
+    h1 {
+        text-align: center;
+        font-size: 2.4em;
+        margin-bottom: 40px;
+    }
+    pre {
+        background: var(--dark);
+        padding: 14px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 15px;
+        margin: 16px 0;
+        border: 1px solid #333;
+    }
+    code {
+        color: #ff9d9d;
+    }
+    .usecase {
+        color: var(--accent);
+        font-size: 0.95em;
+        margin: 8px 0 40px;
+        opacity: 0.9;
+    }
+
+    /* ==================== NAVIGATIEBAR ==================== */
+    #nav-bar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 56px;
+        background: #1e1e1e;
+        border-bottom: 1px solid var(--border);
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        backdrop-filter: blur(10px);
+    }
+    #nav-inner {
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    #nav-inner::-webkit-scrollbar { display: none; }
+
+    /* Custom scrollbar */
+    .scrollbar-track {
+        position: absolute;
+        bottom: 8px;
+        left: 20px;
+        right: 20px;
+        height: 4px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    #nav-bar:hover .scrollbar-track,
+    #nav-bar.touch .scrollbar-track { opacity: 1; }
+
+    .scrollbar-thumb {
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%;
+        width: 100px;
+        background: var(--accent);
+        border-radius: 2px;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    #nav-bar:hover .scrollbar-thumb { opacity: 1; }
+
+    /* Links */
+    #nav-bar a {
+        color: #aaa;
+        text-decoration: none;
+        margin-right: 26px;
+        padding: 8px 0;
+        flex-shrink: 0;
+        position: relative;
+        font-size: 14.5px;
+        transition: color 0.2s;
+    }
+    #nav-bar a:hover { color: #fff; }
+    #nav-bar a::after {
+        content: "";
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 2px;
+        background: var(--accent);
+        transition: width 0.3s ease;
+    }
+    #nav-bar a:hover::after,
+    #nav-bar a.active::after { width: 100%; }
+    #nav-bar a.active { color: #fff; }
+
+    /* Tooltip */
+    .tooltip {
+        visibility: hidden;
+        background: #333;
+        color: #fff;
+        font-size: 13px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        position: absolute;
+        bottom: 140%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 10;
+        pointer-events: none;
+    }
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border: 5px solid transparent;
+        border-top-color: #333;
+    }
+    #nav-bar a:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        body { padding-top: 70px; }
+        #nav-bar { height: 50px; }
+        #nav-bar a { font-size: 13.5px; margin-right: 18px; }
+    }
+</style>
 </head>
 <body>
 
-<!-- JSON Key/Value -->
-<div class="jsinfo">
-    <h3>Take all keys and values from a JSON list</h3>
-    <p>Requires: <code>data</code> is a variable containing a JSON array or object.</p>
-    <code>Object.entries(data).forEach(([key, value]) => console.log(key, value));</code>
-    <p class="usecase">Use cases: Inspect JSON data, debugging, mapping keys to values, dynamic rendering.</p>
+<div id="nav-bar">
+    <div id="nav-inner"></div>
+    <div class="scrollbar-track"><div class="scrollbar-thumb"></div></div>
 </div>
 
-<!-- Event Listeners -->
-<div class="jsinfo">
-    <h3>Event Listeners</h3>
-    <p>Common event types:</p>
-    <code>
-        click, dblclick, mousedown, mouseup, mousemove, mouseenter, mouseleave,
-        keydown, keyup, input, change, submit, focus, blur,
-        pointerdown, pointerup, pointermove,
-        touchstart, touchmove, touchend,
-        dragstart, dragover, drop,
-        DOMContentLoaded, load, resize, scroll
-    </code>
-    <p>Usage:</p>
-    <code>document.addEventListener("eventType", handler)</code>
-    <p>Handler can be:</p>
-    <code>() => { /* code */ }</code>
-    <code>function() { /* code */ }</code>
-    <p class="usecase">Use cases: Responding to user actions, form validation, interactive UI, animations, logging events.</p>
+<div class="container">
+    <h1>JavaScript Cheatsheet</h1>
+
+    <h2>Take all keys and values from JSON</h2>
+    <pre><code>Object.entries(data).forEach(([key, value]) => 
+    console.log(key, value)
+)</code></pre>
+    <p class="usecase">Inspect • Debug • Map • Dynamic rendering</p>
+
+    <h2>Event Listeners</h2>
+    <pre><code>// Common events
+click, dblclick, mousedown, mouseup, mouseenter, mouseleave
+keydown, keyup, input, change, focus, blur
+submit, resize, scroll, load, DOMContentLoaded
+pointerdown, touchstart, dragstart, drop</code></pre>
+    <pre><code>element.addEventListener("click", handler)</code></pre>
+    <p class="usecase">UI interactions • Forms • Animations • Games</p>
+
+    <h2>Simple Fetch</h2>
+    <pre><code>async function get(url, type = "json") {
+    const res = await fetch(url);
+    return await res[type]();
+}
+
+// Usage
+getData("data.json").then(data => console.log(data))</code></pre>
+    <p class="usecase">API calls • Load JSON • Dynamic content</p>
+
+    <h2>For Loops</h2>
+    <pre><code>for (let i = 0; i < 10; i++) {
+    console.log(i);
+}</code></pre>
+
+    <h2>If / Else</h2>
+    <pre><code>if (score >= 90) console.log("A");
+else if (score >= 75) console.log("B");
+else console.log("C");</code></pre>
+
+    <h2>Arrays</h2>
+    <pre><code>const fruits = ["apple", "banana", "cherry"];
+fruits.forEach(f => console.log(f));</code></pre>
+
+    <h2>Variables</h2>
+    <pre><code>let mutable = "changes ok";
+const constant = "never changes";
+var oldWay = "avoid if possible";</code></pre>
+
+    <h2>Functions</h2>
+    <pre><code>function greet(name) {
+    return `Hello, ${name}!`;
+}
+// Arrow
+const greet = name => `Hello, ${name}!`;</code></pre>
+
+    <h2>Objects</h2>
+    <pre><code>const person = {
+    name: "Alice",
+    greet() { console.log(\`Hi, I'm \${this.name}\`); }
+};
+person.greet();</code></pre>
+
+    <h2>Template Literals</h2>
+    <pre><code>const name = "Bob";
+const msg = \`Hello, \${name.toUpperCase()}!\`;</code></pre>
+
+    <h2>Math & Random</h2>
+    <pre><code>// Random int 0-9
+Math.floor(Math.random() * 10)
+
+// Random between min-max
+const rand = (min, max) => 
+    Math.floor(Math.random() * (max - min + 1)) + min;</code></pre>
+
+    <h2>Wait / Delay</h2>
+    <pre><code>const wait = ms => new Promise(r => setTimeout(r, ms));
+
+await wait(2000);
+console.log("2 seconds later");</code></pre>
+
+    <h2>Classes</h2>
+    <pre><code>class Person {
+    constructor(name, age) {
+        this.name = name; this.age = age;
+    }
+    greet() {
+        console.log(\`I'm \${this.name}, \${this.age}yo\`);
+    }
+}
+new Person("Alice", 25).greet();</code></pre>
+
+    <h2>Nested Classes</h2>
+    <pre><code>class Math {
+    static add(a, b) { return a + b; }
+    static Utils = class {
+        static double(n) { return n * 2; }
+    }
+}
+Math.Utils.double(5); // 10</code></pre>
 </div>
 
-<!-- Fetch -->
-<div class="jsinfo">
-    <h3>Simple Fetch</h3>
-    <code>
-        async function getData(url, type){
-        let fetched = await fetch(url);
-        let res = await fetched[type](); // type = "text" or "json"
-        return res;
+<script>
+// Auto generate navigation + custom scrollbar + active state
+document.addEventListener("DOMContentLoaded", () => {
+    const navInner = document.getElementById("nav-inner");
+    const thumb = document.querySelector(".scrollbar-thumb");
+    const headings = document.querySelectorAll("h2");
+
+    headings.forEach(h2 => {
+        const text = h2.textContent.trim();
+        const slug = text.toLowerCase()
+            .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '')
+            .replace(/\s+/g, '-');
+
+        h2.id = slug;
+
+        const a = document.createElement("a");
+        a.href = "#" + slug;
+        a.innerHTML = `<span>${text}</span><span class="tooltip">${text}</span>`;
+        navInner.appendChild(a);
+    });
+
+    // Update custom scrollbar
+    function updateThumb() {
+        const total = navInner.scrollWidth;
+        const visible = navInner.clientWidth;
+
+        if (total <= visible) {
+            thumb.style.width = "0px";
+            return;
         }
 
-        // Example:
-        getData("https://hyperrushnet.github.io/assets/json/games.json", "json")
-        .then(data => console.log(data));
-    </code>
-    <p class="usecase">Use cases: Loading data from APIs, fetching JSON or text, dynamic content updates, AJAX-like behavior.</p>
-</div>
+        const ratio = visible / total;
+        const thumbWidth = Math.max(ratio * visible, 40);
+        thumb.style.width = thumbWidth + "px";
 
-<!-- For Loops -->
-<div class="jsinfo">
-    <h3>"For" Loops</h3>
-    <code>
-        for(let i = 0; i &lt; 8; i++){
-        console.log(i); // Executes 8 times
-        }
-    </code>
-    <p class="usecase">Use cases: Repetitive tasks, iterating arrays, generating elements, timed operations.</p>
-</div>
+        const scrollPercent = navInner.scrollLeft / (total - visible);
+        const trackWidth = document.querySelector(".scrollbar-track").clientWidth;
+        const maxLeft = trackWidth - thumbWidth;
+        thumb.style.left = (scrollPercent * maxLeft) + "px";
+    }
 
-<!-- If/Else -->
-<div class="jsinfo">
-    <h3>If/Else Conditionals</h3>
-    <code>
-        let score = 85;
+    // Active link highlighting
+    function setActiveLink() {
+        let current = "";
+        headings.forEach(h2 => {
+            const rect = h2.getBoundingClientRect();
+            if (rect.top <= 100) current = h2.id;
+        });
 
-        if(score &gt;= 90){
-        console.log("A");
-        } else if(score &gt;= 75){
-        console.log("B");
-        } else {
-        console.log("C");
-        }
-    </code>
-    <p class="usecase">Use cases: Decision making, branching logic, validation, conditional rendering.</p>
-</div>
+        document.querySelectorAll("#nav-bar a").forEach(a => {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+        });
+    }
 
-<!-- Arrays -->
-<div class="jsinfo">
-    <h3>Arrays</h3>
-    <code>
-        let fruits = ["apple", "banana", "cherry"];
-        fruits.forEach(fruit =&gt; console.log(fruit));
-    </code>
-    <p class="usecase">Use cases: Storing multiple values, iterating data, lists of items, dynamic content rendering.</p>
-</div>
+    navInner.addEventListener("scroll", updateThumb);
+    window.addEventListener("resize", updateThumb);
+    window.addEventListener("scroll", setActiveLink);
 
-<!-- Variables -->
-<div class="jsinfo">
-    <h3>Variables</h3>
-    <code>
-        let name = "John";      // Can change
-        const birthYear = 2000;  // Cannot change
-        var oldVar = "Legacy";   // Avoid using var
-    </code>
-    <p class="usecase">Use cases: Store data, constants, dynamic values, user input, configuration.</p>
-</div>
-
-<!-- Functions -->
-<div class="jsinfo">
-    <h3>Functions</h3>
-    <code>
-        function greet(name){
-        return `Hello, ${name}!`;
-        }
-
-        console.log(greet("Alice"));
-    </code>
-    <p class="usecase">Use cases: Reusable code blocks, computations, modularization, event handling.</p>
-</div>
-
-<!-- Objects -->
-<div class="jsinfo">
-    <h3>Objects</h3>
-    <code>
-        let person = {
-        name: "Alice",
-        age: 25,
-        greet: function(){
-        console.log(`Hi, I'm ${this.name}`);
-        }
-        };
-
-        person.greet();
-    </code>
-    <p class="usecase">Use cases: Represent structured data, store multiple properties, methods, configuration objects.</p>
-</div>
-
-<!-- Template Literals -->
-<div class="jsinfo">
-    <h3>Template Literals</h3>
-    <code>
-        let name = "Bob";
-        let greeting = `Hello, ${name}!`;
-        console.log(greeting);
-    </code>
-    <p class="usecase">Use cases: Easy string concatenation, dynamic messages, multi-line strings, HTML generation.</p>
-</div>
-
-<!-- Math -->
-<div class="jsinfo">
-    <h3>Math</h3>
-    <code>
-        console.log(Math.floor(Math.random() * 10)); // 0-9
-        console.log(Math.sqrt(16)); // 4
-    </code>
-    <p class="usecase">Use cases: Random numbers, calculations, rounding, geometry, simple games.</p>
-</div>
-
-<div class="jsinfo">
-    <h3>Wait helper function</h3>
-    <code>
-        async function wait(ms){
-        return new Promise(resolve => setTimeout(resolve, ms))
-        }
-        // Use example
-        console.log("console.log nr1")
-        await wait(2000) // waits 2 seconds.
-        console.log("console.log nr2")
-    </code>
-    <p class="usecase">Use cases: Waiting before action</p>
-</div>
-
-<div class="jsinfo">
-    <h3>Classes</h3>
-    <code>
-        // Define a class
-        class Person {
-        constructor(name, age) {
-        this.name = name; // Property
-        this.age = age;   // Property
-        }
-
-        // Method
-        greet() {
-        console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
-        }
-        }
-
-        // Create instances
-        const alice = new Person("Alice", 25);
-        const bob = new Person("Bob", 30);
-
-        // Call methods
-        alice.greet(); // Hi, I'm Alice and I'm 25 years old.
-        bob.greet();   // Hi, I'm Bob and I'm 30 years old.
-    </code>
-    <p class="usecase">Use cases: Structuring data, reusable methods, ...</p>
-</div>
-
-<div class="jsinfo">
-    <h3>Classes in classes</h3>
-    <code>
-        class outerClass {
-          static outerFunction(p1, p2){
-          return p1 + ", " + p2
-        }
-            static innerClass = class {
-             static innerFunction(p1,p2){
-            return p1 + p2
-            }
-           }
-         }
-
-        console.log(outerClass.outerFunction(1,2))
-        console.log(outerClass.innerClass.innerFunction(1,2))
-    </code>
-    <p class="usecase">Use cases: Structuring data even more.</p>
-</div>
-
+    // Initial calls
+    setTimeout(() => {
+        updateThumb();
+        setActiveLink();
+    }, 100);
+});
+</script>
 </body>
 </html>
