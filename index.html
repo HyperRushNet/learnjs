@@ -1,606 +1,368 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript Master Course – 40 Complete Lessen</title>
-<style>
-:root{--p:#2563eb;--pd:#1d4ed8;--g1:#f8fafc;--g2:#e2e8f0;--g7:#334155;--g9:#0f172a;--s:#10b981;--c:#1e293b;--r:12px;--sh:0 10px 30px rgba(0,0,0,.1)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh}
-header{background:white;padding:3rem 2rem;text-align:center;border-radius:var(--r);box-shadow:var(--sh);margin:2rem auto;max-width:1100px}
-h1{font-size:2.9rem;color:var(--pd);margin-bottom:.5rem}
-.subtitle{font-size:1.25rem;color:#64748b;margin:1rem 0}
-.progress-container{height:10px;background:var(--g2);border-radius:5px;overflow:hidden;margin:1.5rem 0}
-.progress-bar{height:100%;width:0;background:var(--p);border-radius:5px;transition:width .8s ease}
-.container{max-width:1100px;margin:0 auto;padding:1rem}
-.lesson{background:white;border-radius:var(--r);box-shadow:var(--sh);margin:2.5rem 0;overflow:hidden}
-.lesson-header{background:var(--p);color:white;padding:1.4rem 2rem;font-size:1.5rem;font-weight:600}
-.lesson-content{padding:2rem}
-pre{background:var(--c);color:#e2e8f0;padding:1.8rem;border-radius:var(--r);overflow-x:auto;font-size:.95rem;margin:1.5rem 0;font-family:'JetBrains Mono',monospace;line-height:1.5}
-.try-it{background:#f0f9ff;border:2px solid #bfdbfe;border-radius:var(--r);padding:2rem;margin:2rem 0}
-.try-it h4{margin-bottom:1rem;color:var(--pd);font-size:1.3rem}
-input,select,textarea,button{padding:.9rem 1.3rem;border-radius:10px;border:2px solid var(--g2);font-size:1rem;margin:.5rem .3rem .5rem 0;font-family:inherit}
-button{background:var(--p);color:white;border:none;cursor:pointer;font-weight:600;transition:.3s}
-button:hover{background:var(--pd)}
-button.red{background:#ef4444}
-button.red:hover{background:#dc2626}
-.output{margin-top:1rem;padding:1.4rem;background:#f0fdf4;border:2px solid var(--s);border-radius:var(--r);min-height:60px;font-family:'JetBrains Mono',monospace;font-size:1.05rem;color:#166534}
-#console{background:var(--g9);color:#86efac;padding:2rem;height:350px;overflow-y:auto;border-radius:var(--r);font-family:'JetBrains Mono',monospace;margin-top:1.5rem;font-size:.95rem}
-footer{text-align:center;padding:4rem 1rem;color:#64748b;font-size:1.1rem}
-@media(max-width:768px){h1{font-size:2.3rem}.lesson-header{font-size:1.3rem;padding:1.2rem}.lesson-content,.try-it{padding:1.5rem}}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Cheatsheet</title>
+    <style>
+        :root {
+            --bg: #111;
+            --text: #eee;
+            --accent: #c88;
+            --dark: #1a1a1a;
+            --border: #333;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            padding-top: 80px;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        h1, h2 {
+            margin-top: 50px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.4em;
+            margin-bottom: 40px;
+        }
+        pre {
+            background: var(--dark);
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 15px;
+            margin: 16px 0;
+            border: 1px solid #333;
+        }
+        code {
+            color: #ff9d9d;
+        }
+        .usecase {
+            color: var(--accent);
+            font-size: 0.95em;
+            margin: 8px 0 40px;
+            opacity: 0.9;
+        }
+
+        /* ==================== NAVIGATIEBAR ==================== */
+        #nav-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 56px;
+            background: #1e1e1e;
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+        }
+        #nav-inner {
+            height: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        #nav-inner::-webkit-scrollbar { display: none; }
+
+        /* Custom scrollbar */
+        .scrollbar-track {
+            position: absolute;
+            bottom: 8px;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #nav-bar:hover .scrollbar-track,
+        #nav-bar.touch .scrollbar-track { opacity: 1; }
+
+        .scrollbar-thumb {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 100px;
+            background: var(--accent);
+            border-radius: 2px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        #nav-bar:hover .scrollbar-thumb { opacity: 1; }
+
+        /* Links */
+        #nav-bar a {
+            color: #aaa;
+            text-decoration: none;
+            margin-right: 26px;
+            padding: 8px 0;
+            flex-shrink: 0;
+            position: relative;
+            font-size: 14.5px;
+            transition: color 0.2s;
+        }
+        #nav-bar a:hover { color: #fff; }
+        #nav-bar a::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        #nav-bar a:hover::after,
+        #nav-bar a.active::after { width: 100%; }
+        #nav-bar a.active { color: #fff; }
+
+        /* Tooltip */
+        .tooltip {
+            visibility: hidden;
+            background: #333;
+            color: #fff;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px solid transparent;
+            border-top-color: #333;
+        }
+        #nav-bar a:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            body { padding-top: 70px; }
+            #nav-bar { height: 50px; }
+            #nav-bar a { font-size: 13.5px; margin-right: 18px; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<header>
-    <h1>JavaScript Master Course</h1>
-    <p class="subtitle">40 Volledige Interactieve Lessen – Van Beginner tot Expert</p>
-    <div class="progress-container"><div class="progress-bar" id="progress"></div></div>
-</header>
 
-<div id="lessons-container"></div>
-
-<footer>JavaScript Master Course 2025 © – 40 Complete Lessen – Je bent een JavaScript Master!</footer>
+<div id="nav-bar">
+    <div id="nav-inner"></div>
+    <div class="scrollbar-track"><div class="scrollbar-thumb"></div></div>
 </div>
 
+<div class="container">
+    <h1>JavaScript Cheatsheet</h1>
+
+    <h2>Take all keys and values from JSON</h2>
+    <pre><code>Object.entries(data).forEach(([key, value]) =>
+    console.log(key, value)
+)</code></pre>
+    <p class="usecase">Inspect • Debug • Map • Dynamic rendering</p>
+
+    <h2>Event Listeners</h2>
+    <pre><code>// Common events
+click, dblclick, mousedown, mouseup, mouseenter, mouseleave
+keydown, keyup, input, change, focus, blur
+submit, resize, scroll, load, DOMContentLoaded
+pointerdown, touchstart, dragstart, drop</code></pre>
+    <pre><code>element.addEventListener("click", handler)</code></pre>
+    <p class="usecase">UI interactions • Forms • Animations • Games</p>
+
+    <h2>Simple Fetch</h2>
+    <pre><code>async function get(url, type = "json") {
+    const res = await fetch(url);
+    return await res[type]();
+}
+
+// Usage
+getData("data.json").then(data => console.log(data))</code></pre>
+    <p class="usecase">API calls • Load JSON • Dynamic content</p>
+
+    <h2>For Loops</h2>
+    <pre><code>for (let i = 0; i < 10; i++) {
+    console.log(i);
+}</code></pre>
+
+    <h2>If / Else</h2>
+    <pre><code>if (score >= 90) console.log("A");
+else if (score >= 75) console.log("B");
+else console.log("C");</code></pre>
+
+    <h2>Arrays</h2>
+    <pre><code>const fruits = ["apple", "banana", "cherry"];
+fruits.forEach(f => console.log(f));</code></pre>
+
+    <h2>Variables</h2>
+    <pre><code>let mutable = "changes ok";
+const constant = "never changes";
+var oldWay = "avoid if possible";</code></pre>
+
+    <h2>Functions</h2>
+    <pre><code>function greet(name) {
+    return `Hello, ${name}!`;
+}
+// Arrow
+const greet = name => `Hello, ${name}!`;</code></pre>
+
+    <h2>Objects</h2>
+    <pre><code>const person = {
+    name: "Alice",
+    greet() { console.log(\`Hi, I'm \${this.name}\`); }
+};
+person.greet();</code></pre>
+
+    <h2>Template Literals</h2>
+    <pre><code>const name = "Bob";
+const msg = \`Hello, \${name.toUpperCase()}!\`;</code></pre>
+
+    <h2>Math & Random</h2>
+    <pre><code>// Random int 0-9
+Math.floor(Math.random() * 10)
+
+// Random between min-max
+const rand = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min;</code></pre>
+
+    <h2>Wait / Delay</h2>
+    <pre><code>const wait = ms => new Promise(r => setTimeout(r, ms));
+
+await wait(2000);
+console.log("2 seconds later");</code></pre>
+
+    <h2>Classes</h2>
+    <pre><code>class Person {
+    constructor(name, age) {
+        this.name = name; this.age = age;
+    }
+    greet() {
+        console.log(\`I'm \${this.name}, \${this.age}yo\`);
+    }
+}
+new Person("Alice", 25).greet();</code></pre>
+
+    <h2>Nested Classes</h2>
+    <pre><code>class Math {
+    static add(a, b) { return a + b; }
+    static Utils = class {
+        static double(n) { return n * 2; }
+    }
+}
+Math.Utils.double(5); // 10</code></pre>
+
+    <h2>.padStart/End</h2>
+    <pre><code>/* .padStart - Adds chars to start of Str */
+    let result = "DataHere".padStart(
+    15, // total length
+    "a" // fill character
+);
+        
+// ====================
+        
+/* .padEnd - Adds chars to end of Str */
+console.log(result); // aaaaaaDataHere
+
+    let result = "DataHere".padEnd(
+    15, // total length
+    "a" // fill character
+);
+
+console.log(result); // DataHereaaaaaa
+
+ </code></pre>
+</div>
+
+
 <script>
-// ===================================
-// ALLE 40 LESSEN IN JSON (uitgebreide uitleg!)
-// ===================================
-const lessen = [
-  {nr:1,titel:"Variabelen & Datatypes", uitleg:`
-<p><strong>Variabelen</strong> zijn bakjes om data in op te slaan. Er zijn drie manieren om ze te declareren:</p>
-<ul>
-  <li><code>let</code> → veranderbaar (aanbevolen)</li>
-  <li><code>const</code> → constant, kan niet meer gewijzigd worden</li>
-  <li><code>var</code> → oud, vermijd dit (heeft function scope en hoisting)</li>
-</ul>
-<p>JavaScript heeft 8 datatypes:</p>
-<ul>
-  <li><code>string</code> → "tekst"</li>
-  <li><code>number</code> → 42 of 3.14</li>
-  <li><code>boolean</code> → true / false</li>
-  <li><code>null</code> → bewust leeg</li>
-  <li><code>undefined</code> → nog geen waarde</li>
-  <li><code>object</code> → {key: value}</li>
-  <li><code>array</code> → [1,2,3] (eigenlijk ook een object)</li>
-  <li><code>Symbol</code> → uniek en onveranderbaar (ES6)</li>
-</ul>
-<p><strong>Tip:</strong> Gebruik altijd <code>const</code> tenzij je weet dat de waarde verandert → dan <code>let</code>.</p>
-  `, code:`// Voorbeelden van variabelen
-let naam = "Sara";        // veranderbaar
-naam = "Lisa";            // mag
+    // Auto generate navigation + custom scrollbar + active state
+    document.addEventListener("DOMContentLoaded", () => {
+        const navInner = document.getElementById("nav-inner");
+        const thumb = document.querySelector(".scrollbar-thumb");
+        const headings = document.querySelectorAll("h2");
 
-const PI = 3.14159;       // vast
-// PI = 3.14;             // FOUT!
+        headings.forEach(h2 => {
+            const text = h2.textContent.trim();
+            const slug = text.toLowerCase()
+                .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '')
+                .replace(/\s+/g, '-');
 
-let leeftijd = 25;
-let isStudent = true;
-let hobbies = ["lezen", "coderen"];
-let persoon = {naam: "Tom", leeftijd: 30};
-let niets = null;
-let nogNietDefined;`, tryit:`<input type="text" id="input1" value="Jouw naam" placeholder="Typ je naam">
-<button onclick="les1()">Toon naam</button>
-<div id="output1" class="output"></div>`},
+            h2.id = slug;
 
-  {nr:2,titel:"Functies (Function Declaration, Expression & Arrow)", uitleg:`
-<p>Functies zijn herbruikbare codeblokken. Er zijn 3 manieren:</p>
-<ol>
-  <li><strong>Function Declaration</strong> → wordt ge-hoisted</li>
-  <li><strong>Function Expression</strong> → niet ge-hoisted</li>
-  <li><strong>Arrow Function</strong> → kortere syntax, geen eigen <code>this</code></li>
-</ol>
-<p>Arrow functions zijn perfect voor callbacks en korte functies.</p>
-  `, code:`// 1. Function Declaration
-function zegHallo(naam) {
-  return "Hallo " + naam + "!";
-}
+            const a = document.createElement("a");
+            a.href = "#" + slug;
+            a.innerHTML = `<span>${text}</span><span class="tooltip">${text}</span>`;
+            navInner.appendChild(a);
+        });
 
-// 2. Function Expression
-const groet = function(naam) {
-  return "Hoi " + naam + "!";
-};
+        // Update custom scrollbar
+        function updateThumb() {
+            const total = navInner.scrollWidth;
+            const visible = navInner.clientWidth;
 
-// 3. Arrow Function (ES6)
-const begroet = naam => \`Goededag \${naam}!\`;
+            if (total <= visible) {
+                thumb.style.width = "0px";
+                return;
+            }
 
-const optellen = (a, b) => a + b;
-const kwadraat = x => x * x;`, tryit:`<input type="number" id="a2" value="12">
-<select id="op2"><option>+</option><option>-</option><option>*</option><option>/</option></select>
-<input type="number" id="b2" value="5">
-<button onclick="les2()">Bereken</button>
-<div id="output2" class="output"></div>`},
+            const ratio = visible / total;
+            const thumbWidth = Math.max(ratio * visible, 40);
+            thumb.style.width = thumbWidth + "px";
 
-  {nr:3,titel:"If / Else & Logische Operatoren", uitleg:`
-<p>Voorwaardelijke logica met <code>if</code>, <code>else if</code> en <code>else</code>.</p>
-<p>Belangrijke operatoren:</p>
-<ul>
-  <li><code>&&</code> → EN</li>
-  <li><code>||</code> → OF</li>
-  <li><code>!</code> → NIET</li>
-  <li><code>===</code> → strikte gelijkheid (type + waarde)</li>
-  <li><code>!==</code> → strikte ongelijkheid</li>
-</ul>
-<p>Gebruik altijd <code>===</code> in plaats van <code>==</code>!</p>
-  `, code:`let leeftijd = 17;
-let heeftRijbewijs = false;
+            const scrollPercent = navInner.scrollLeft / (total - visible);
+            const trackWidth = document.querySelector(".scrollbar-track").clientWidth;
+            const maxLeft = trackWidth - thumbWidth;
+            thumb.style.left = (scrollPercent * maxLeft) + "px";
+        }
 
-if (leeftijd >= 18 && heeftRijbewijs) {
-  console.log("Mag autorijden");
-} else if (leeftijd >= 16) {
-  console.log("Mag brommer rijden");
-} else {
-  console.log("Te jong voor voertuig");
-}
+        // Active link highlighting
+        function setActiveLink() {
+            let current = "";
+            headings.forEach(h2 => {
+                const rect = h2.getBoundingClientRect();
+                if (rect.top <= 100) current = h2.id;
+            });
 
-// Ternary operator (kort)
-let status = leeftijd >= 18 ? "Volwassen" : "Minderjarig";`, tryit:`<input type="number" id="age3" value="17" min="0" max="120">
-<button onclick="les3()">Check leeftijd</button>
-<div id="output3" class="output"></div>`},
+            document.querySelectorAll("#nav-bar a").forEach(a => {
+                a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+            });
+        }
 
-  {nr:4,titel:"Loops: for, while, for...of, for...in", uitleg:`
-<p>Herhaal code met loops:</p>
-<ul>
-  <li><code>for</code> → klassieke loop</li>
-  <li><code>while</code> / <code>do...while</code></li>
-  <li><code>for...of</code> → voor arrays</li>
-  <li><code>for...in</code> → voor object keys</li>
-</ul>
-<p>Gebruik <code>break</code> om uit een loop te gaan, <code>continue</code> om naar volgende iteratie te gaan.</p>
-  `, code:`// Klassieke for-loop
-for (let i = 1; i <= 10; i++) {
-  console.log(i);
-}
+        navInner.addEventListener("scroll", updateThumb);
+        window.addEventListener("resize", updateThumb);
+        window.addEventListener("scroll", setActiveLink);
 
-// for...of (array)
-let kleuren = ["rood", "groen", "blauw"];
-for (let kleur of kleuren) {
-  console.log(kleur);
-}
-
-// for...in (object)
-let persoon = {naam: "Lisa", leeftijd: 28};
-for (let key in persoon) {
-  console.log(key + ": " + persoon[key]);
-}`, tryit:`<input type="number" id="tafel4" value="7" min="1" max="20">
-<button onclick="les4()">Toon tafel van</button>
-<div id="output4" class="output"></div>`},
-
-  {nr:5,titel:"Arrays & Array Methoden", uitleg:`
-<p>Arrays zijn geordende lijsten. Belangrijke methoden:</p>
-<ul>
-  <li><code>push()</code> / <code>pop()</code></li>
-  <li><code>unshift()</code> / <code>shift()</code></li>
-  <li><code>map()</code> → nieuwe array</li>
-  <li><code>filter()</code> → gefilterde array</li>
-  <li><code>reduce()</code> → één waarde</li>
-  <li><code>find()</code>, <code>some()</code>, <code>every()</code></li>
-</ul>
-  `, code:`let getallen = [1, 2, 3, 4, 5];
-
-// Verdubbel alle getallen
-let verdubbeld = getallen.map(x => x * 2);
-
-// Alleen even getallen
-let even = getallen.filter(x => x % 2 === 0);
-
-// Som van alle getallen
-let som = getallen.reduce((acc, curr) => acc + curr, 0);`, tryit:`<textarea id="array5" style="width:100%;height:80px">1, 3, 5, 7, 8, 10</textarea>
-<button onclick="les5()">Verdubbel + Filter even</button>
-<div id="output5" class="output"></div>`},
-
-  // (De overige 35 lessen zijn hieronder – ik heb ze allemaal uitgebreid gemaakt)
-
-  {nr:6,titel:"Objecten & this keyword", uitleg:`<p>Objecten modelleren echte dingen met eigenschappen (data) en methoden (gedrag). Je maakt ze vaak met een objectliteral <code>{}</code> of via een class.</p><p><code>this</code> verwijst naar het 'huidige' object binnen een methode, maar is afhankelijk van de aanroep. Arrow functions hebben geen eigen <code>this</code> en nemen de waarde over van de buitenste scope.</p><ul><li>Methode-aanroep: <code>obj.method()</code> → <code>this === obj</code></li><li>Losse functie: <code>fn()</code> → <code>this</code> is <code>undefined</code> (strict) of <code>window</code> (non-strict)</li><li>Explíciet binden: <code>fn.call(obj)</code>, <code>fn.apply(obj)</code>, <code>fn.bind(obj)</code></li></ul><p>Gebruik objecten voor samenhangende data, voorkom het misbruiken van <code>this</code> in arrow methods en structureer gedrag als methoden.</p><p><strong>Valkuilen:</strong> arrow functions als objectmethoden (geen eigen <code>this</code>), het verliezen van context bij destructuring van methoden, en te veel gesharede mutabele state.</p>`, code:`let persoon = {
-  naam: "Anna",
-  leeftijd: 27,
-  begroet() {
-    console.log(\`Hallo, ik ben \${this.naam}\`);
-  }
-};`, tryit:`<input id="naam6" value="Piet"><button onclick="les6()">Maak object</button><div id="output6" class="output"></div>`},
-  {nr:7,titel:"DOM Manipulatie", uitleg:`<p>De DOM is de boomstructuur van je HTML. Je selecteert elementen met <code>querySelector</code>/<code>getElementById</code> en past eigenschappen aan (<code>textContent</code>, <code>classList</code>, <code>style</code>).</p><ul><li>Selecteren: <code>document.querySelector('.btn')</code>, <code>#id</code>, <code>.class</code>, tagnamen</li><li>Creëren: <code>document.createElement()</code> en vervolgens <code>append</code>/<code>appendChild</code></li><li>Classes toggelen: <code>el.classList.add/remove/toggle</code> voor styling zonder inline styles</li><li>Efficiëntie: bundel DOM-updates, gebruik fragmenten, voorkom layout thrashing</li></ul><p>Werk semantisch: houd HTML voor structuur, CSS voor presentatie, en JavaScript voor gedrag.</p>`, code:`document.querySelector("#mijnP").style.color = "red";
-document.getElementById("titel").textContent = "Nieuw!";`, tryit:`<p id="dom7">Ik word rood bij klik!</p><button onclick="les7()">Verander kleur</button>`},
-  {nr:8,titel:"Events & Event Listeners", uitleg:`<p>Events laten je reageren op gebruikersacties (klik, input, submit) en systeemgebeurtenissen (load, resize). Gebruik <code>addEventListener</code> om handlers toe te voegen.</p><ul><li>Bubbling vs capturing: standaard bubbelen events omhoog; met <code>{capture:true}</code> luister je in de capture-fase</li><li>Opties: <code>{once:true}</code> voor eenmalige handlers; <code>{passive:true}</code> bij scroll voor performance</li><li>Verwijderen: <code>removeEventListener</code> vereist dezelfde referentie naar de functie</li><li>Preventie: <code>event.preventDefault()</code> voor standaardacties zoals formulier-submit</li></ul><p>Centraliseer events waar mogelijk (delegation) en voorkom anonieme inline-handlers die je niet kunt verwijderen.</p>`, code:`button.addEventListener("click", () => {
-  teller++;
-  document.getElementById("count8").textContent = teller;
-});`, tryit:`<button id="btn8">Klik mij</button> <span id="count8">0</span>`},
-  {nr:9,titel:"Scope & Block Scope", uitleg:`<p>Scope bepaalt waar variabelen zichtbaar zijn. <code>let</code>/<code>const</code> hebben block scope (<code>{}</code>), <code>var</code> heeft function scope en wordt ge-hoisted.</p><ul><li>Block scope: variabelen bestaan alleen binnen het blok</li><li>Hoisting: declaraties worden verplaatst, maar <code>let</code>/<code>const</code> zitten in de Temporal Dead Zone tot initialisatie</li><li>Shadowing: een binnenste variabele kan een buitenste naam 'overschaduwen'</li></ul><p>Gebruik <code>const</code> standaard en <code>let</code> wanneer nodig, vermijd <code>var</code> om verrassingen te voorkomen.</p>`, code:`{
-  let x = 10;
-  const y = 20;
-}
-// x en y bestaan hier niet meer`, tryit:`<button onclick="les9()">Test scope</button><div id="output9" class="output"></div>`},
-  {nr:10,titel:"String Methoden", uitleg:`<p>Strings zijn immutable: methoden retourneren een nieuwe string. Veelgebruikte bewerkingen zijn transformeren (<code>toUpperCase</code>/<code>toLowerCase</code>), knippen (<code>slice</code>/<code>substring</code>), zoeken (<code>includes</code>/<code>indexOf</code>/<code>replace</code>), en opschonen (<code>trim</code>).</p><ul><li>Zoeken/vervangen: gebruik RegExp voor complexe patronen</li><li>Interpolatie: template literals met <code>\`tekst \${expr}\`</code> vervangen plakken met <code>+</code></li><li>Normalisatie: <code>normalize()</code> voor Unicode-consistentie</li></ul><p>Werk consequent met lowercase/uppercase bij vergelijkingen en let op locale-specifieke regels.</p>`, code:`let zin = "  Hallo Wereld  ";
-zin.trim().toLowerCase().includes("hallo");`, tryit:`<input id="str10" value="javascript is leuk"><button onclick="les10()">Maak HOOFDLetters</button><div id="output10" class="output"></div>`},
-  {nr:11,titel:"Math Object", uitleg:`<p><code>Math</code> biedt wiskundige functies en constanten: afronden (<code>round</code>/<code>floor</code>/<code>ceil</code>), trigonometrie, exponenten, en random.</p><ul><li>Random bereiken: <code>min + Math.random() * (max - min)</code></li><li>Decimale nauwkeurigheid: vermijd binaire afrondingsfouten (bijv. 0.1 + 0.2)</li><li>Vergelijking: gebruik een epsilon (<code>Number.EPSILON</code>) voor floats</li></ul><p>Bij geldbedragen: werk met gehele centen (integer) of BigInt/bibliotheken om afrondingsfouten te vermijden.</p>`, code:`Math.floor(Math.random() * 100) + 1; // 1-100`, tryit:`<button onclick="les11()">Random 1-100</button><div id="output11" class="output"></div>`},
-  {nr:12,titel:"Destructuring", uitleg:`<p>Destructuring haalt waarden uit arrays/objecten in een compacte vorm. Je kunt defaults, hernoemen en geneste structuren ontleden.</p><ul><li>Arrays: <code>const [eerste, , derde] = lijst</code></li><li>Objecten: <code>const {naam: n, leeftijd: l = 0}</code></li><li>Rest: <code>const [head, ...tail]</code>, <code>const {a, ...rest}</code></li></ul><p>Houd het leesbaar en vermijd te diepe destructuring in functieparameters.</p>`, code:`let [a, b] = [10, 20];
-let {naam, leeftijd} = persoon;`, tryit:`<button onclick="les12()">Destructure test</button><div id="output12" class="output"></div>`},
-  {nr:13,titel:"Spread & Rest Operator", uitleg:`<p><code>...</code> heeft twee gezichten: spread kopieert/spreidt elementen naar een nieuw array/object; rest verzamelt meerdere waarden in één parameter.</p><ul><li>Shallow copy: alleen de bovenste laag wordt gekopieerd</li><li>Mergen: <code>{...a, ...b}</code> – latere eigenschappen overschrijven eerdere</li><li>Functieparameters: <code>function som(...nums)</code> verzamelt alle argumenten</li></ul><p>Let op mutaties van geneste objecten bij shallow copies.</p>`, code:`let nieuw = [...oud, 4, 5];
-function som(...nums) { return nums.reduce((a,b)=>a+b); }`, tryit:`<button onclick="les13()">Spread demo</button><div id="output13" class="output"></div>`},
-  {nr:14,titel:"Classes & Constructor", uitleg:`<p>Classes bieden syntactische suiker boven prototypes. Een <code>constructor</code> initialiseert een instantie, methods komen op de prototypeketen. Gebruik classes voor structuur en duidelijkheid.</p><ul><li>Instantiëren: <code>new</code> maakt een object met de juiste prototype</li><li>Instance vs static: <code>static</code> methoden horen bij de class zelf</li><li>Velden: publieke velden en <code>#private</code> voor encapsulatie</li></ul><p>Houd classes klein en gefocust; voorkom god-klassen.</p>`, code:`class Persoon {
-  constructor(naam) {
-    this.naam = naam;
-  }
-  begroet() { console.log("Hoi " + this.naam); }
-}`, tryit:`<input id="cls14" value="Kees"><button onclick="les14()">Maak klasse</button><div id="output14" class="output"></div>`},
-  {nr:15,titel:"Inheritance (Erft)", uitleg:`<p>Met <code>extends</code> bouw je voort op een bestaande class. <code>super()</code> roept de constructor/methode van de ouder aan. Overriden van methoden maakt polymorfisme mogelijk.</p><ul><li>Constructor-keten: altijd <code>super(...)</code> vóór <code>this</code></li><li>Method overriding: voeg gedrag toe, roep desgewenst <code>super.method()</code> aan</li><li>Alternatief: composition boven inheritance voor flexibele structuren</li></ul><p>Voorkom diepe erfketens; kies heldere verantwoordelijkheden.</p>`, code:`class Student extends Persoon {
-  constructor(naam, studie) {
-    super(naam);
-    this.studie = studie;
-  }
-}`, tryit:`<button onclick="les15()">Erft test</button><div id="output15" class="output"></div>`},
-  {nr:16,titel:"Promises", uitleg:`<p>Promises vertegenwoordigen een toekomstige waarde met staten: pending, fulfilled, rejected. Ze ondersteunen chaining met <code>.then</code>/<code>.catch</code> en maken foutafhandeling expliciet.</p><ul><li>Chaining: retourneer een promise in <code>then</code> voor sequentiële stappen</li><li>Foutafhandeling: één <code>catch</code> onderaan of per stap</li><li>Combineren: <code>Promise.all</code>, <code>allSettled</code>, <code>race</code>, <code>any</code></li></ul><p>Schrijf executors zonder onnodige try/catch en vermijd callback-hell door promises te structureren.</p>`, code:`new Promise((resolve, reject) => {
-  setTimeout(() => resolve("Klaar!"), 1000);
-});`, tryit:`<button onclick="les16()">Start Promise</button><div id="output16" class="output"></div>`},
-  {nr:17,titel:"Async / Await", uitleg:`<p><code>async/await</code> maakt asynchrone code leesbaar alsof het synchroon is. <code>await</code> pauzeert binnen een <code>async</code> functie tot een promise voltooid is.</p><ul><li>Fouten: gebruik <code>try/catch</code> en hergooi of behandel</li><li>Parallel: start promises eerst en <code>await Promise.all</code> voor snelheid</li><li>Regel: <code>await</code> mag alleen binnen <code>async</code> functies</li></ul><p>Let op dat te veel sequentieel <code>await</code> performance kost; combineer waar het kan.</p>`, code:`async function laadData() {
-  await new Promise(r => setTimeout(r, 1000));
-  return "Data geladen";
-}`, tryit:`<button onclick="les17()">Async test</button><div id="output17" class="output"></div>`},
-  {nr:18,titel:"Fetch API", uitleg:`<p><code>fetch</code> haalt resources via HTTP. Standaard faalt <code>fetch</code> niet bij 4xx/5xx; check <code>response.ok</code>. Gebruik <code>headers</code>, <code>method</code>, en een <code>body</code> voor POST/PUT.</p><ul><li>JSON: <code>await response.json()</code></li><li>Fouten: gooi zelf een error bij <code>!response.ok</code></li><li>CORS: server moet juiste headers sturen</li><li>Annuleren: <code>AbortController</code> voor het stoppen van requests</li></ul><p>Structureer API-calls in een aparte laag en hergebruik errorhandling.</p>`, code:`fetch("https://jsonplaceholder.typicode.com/posts/1")
-  .then(r => r.json())
-  .then(data => console.log(data));`, tryit:`<button onclick="les18()">Mock API call</button><div id="output18" class="output"></div>`},
-  {nr:19,titel:"LocalStorage", uitleg:`<p><code>localStorage</code> bewaart key-value strings per origin en is synchrone I/O. Serialiseer objecten met <code>JSON.stringify</code> en houd rekening met opslaglimieten.</p><ul><li>Opslag: alles is string; parse met <code>JSON.parse</code></li><li>Namespacing: gebruik prefixes om botsingen te vermijden</li><li>Beveiliging: geen gevoelige data; gebruikers kunnen het bekijken</li></ul><p>Voor grotere/complexe data: overweeg <code>IndexedDB</code> of server-side opslag.</p>`, code:`localStorage.setItem("naam", "Tom");
-localStorage.getItem("naam");`, tryit:`<input id="ls19" value="mijnData"><button onclick="les19save()">Opslaan</button><button onclick="les19get()">Ophalen</button><div id="output19" class="output"></div>`},
-  {nr:20,titel:"JSON", uitleg:`<p>JSON is een tekstformaat voor gestructureerde data. Je zet objecten om naar tekst met <code>JSON.stringify</code> en terug met <code>JSON.parse</code>.</p><ul><li>Replacer/space: vormgeving en filteren bij <code>stringify</code></li><li>Reviver: typetransformatie bij <code>parse</code></li><li>Fouten: wrap <code>parse</code> in <code>try/catch</code> voor ongeldige input</li></ul><p>Definieer een schema of contract per API voor stabiliteit.</p>`, code:`let obj = {naam: "Lisa"};
-let json = JSON.stringify(obj);
-let terug = JSON.parse(json);`, tryit:`<button onclick="les20()">Object → JSON → Object</button><div id="output20" class="output"></div>`},
-  {nr:21,titel:"setTimeout & setInterval", uitleg:`<p><code>setTimeout</code> voert één keer uit na een delay; <code>setInterval</code> herhaalt. Timing kan driften bij drukke main thread.</p><ul><li>Stoppen: <code>clearTimeout</code>/<code>clearInterval</code> met het id</li><li>Alternatief: <code>requestAnimationFrame</code> voor animaties</li><li>Herhalingen: liever recursieve <code>setTimeout</code> voor controle</li></ul><p>Bewaar ids en maak timers netjes schoon bij component teardown.</p>`, code:`setTimeout(() => alert("Hoi!"), 2000);
-let id = setInterval(() => console.log("Tick"), 1000);
-// clearInterval(id);`, tryit:`<button onclick="les21()">Start timer (2s)</button><div id="output21" class="output"></div>`},
-  {nr:22,titel:"Closures", uitleg:`<p>Een closure bewaart referenties naar variabelen uit de lexicale (buitenste) scope, zelfs nadat die scope is afgesloten. Dit maakt private state mogelijk.</p><ul><li>Use-cases: module pattern, memoization, event handlers met state</li><li>Let op: in loops met <code>var</code> delen iterations dezelfde variabele</li><li>Performance: closures zijn normaal; vermijd onnodige groeiende arrays in gesloten scope</li></ul><p>Gebruik <code>let</code> voor blok-scope in loops en houd closures overzichtelijk.</p>`, code:`function maakTeller() {
-  let count = 0;
-  return () => ++count;
-}
-let teller = maakTeller();`, tryit:`<button onclick="les22()">Teller +1</button><div id="output22" class="output">0</div>`},
-  {nr:23,titel:"Higher-Order Functions", uitleg:`<p>Higher-order functions nemen functies als argumenten of geven ze terug. Ze vormen de basis voor declaratieve data-transformatie.</p><ul><li>Transformeren: <code>map</code>, <code>filter</code>, <code>reduce</code></li><li>Predicates: zuivere functies zonder side-effects</li><li>Compositie: combineer kleine functies tot krachtige pipelines</li></ul><p>Schrijf pure functies en vermijd mutaties voor voorspelbaar gedrag.</p>`, code:`[1,2,3].map(x => x*2);
-[1,2,3].filter(x => x > 1);`, tryit:`<button onclick="les23()">Map & Filter demo</button><div id="output23" class="output"></div>`},
-  {nr:24,titel:"Currying", uitleg:`<p>Currying zet een functie met meerdere parameters om in een keten van functies die elk één parameter nemen. Dit vergemakkelijkt hergebruik en partial application.</p><ul><li>Partial application: vooraf invullen van bekende waarden</li><li>Compositie: bouw pipelines met kleine functies</li><li>Leesbaarheid: pas toe waar het natuurlijk is</li></ul><p>Overdrijf niet; kies helderheid boven cleverness.</p>`, code:`const optellen = a => b => a + b;
-optellen(5)(3); // 8`, tryit:`<button onclick="les24()">add(4)(7)</button><div id="output24" class="output"></div>`},
-  {nr:25,titel:"Template Literals", uitleg:`<p>Template literals gebruiken backticks en expressies met <code>\${}</code> voor leesbare strings, inclusief multiline en tag functions.</p><ul><li>Interpolatie: <code>\`Hallo \${naam}\`</code></li><li>Multiline: behoudt nieuwe regels</li><li>Tags: pas een parser toe voor beveiliging (bijv. escaping)</li></ul><p>Gebruik ze consequent voor complexere tekstopbouw.</p>`, code:`let naam = "Jan";
-let zin = \`Hallo \${naam.toUpperCase()}!\`;`, tryit:`<input id="temp25" value="Kees"><button onclick="les25()">Maak zin</button><div id="output25" class="output"></div>`},
-  {nr:26,titel:"Regular Expressions (RegExp)", uitleg:`<p>RegExp beschrijft tekstpatronen. Combineer tekensets, herhalingen en ankertjes met flags zoals <code>g</code>, <code>i</code>, <code>m</code>.</p><ul><li>Classes: <code>\d</code> cijfers, <code>\w</code> woordtekens, <code>\s</code> whitespace</li><li>Ankers: <code>^</code> begin, <code>$</code> einde</li><li>Groepen: <code>()</code> capteren, <code>?:</code> non-capturing</li><li>Lookaround: <code>?=</code>/<code>?!</code>/<code>?<=</code>/<code>?<!</code></li></ul><p>Test patronen op edge-cases en meet performance bij grote teksten.</p>`, code:`let tel = "Bel mij op 06-12345678";
-let cijfers = tel.match(/\\d+/g);`, tryit:`<input id="regex26" value="Mijn email is test@mail.com"><button onclick="les26()">Vind email</button><div id="output26" class="output"></div>`},
-  {nr:27,titel:"Date Object", uitleg:`<p><code>Date</code> werkt met Unix-epoch milliseconden. Let op tijdzones, locale formatting en DST (zomertijd). Gebruik <code>toLocaleDateString</code>/<code>toLocaleTimeString</code> voor weergave.</p><ul><li>UTC vs lokale tijd</li><li>Parsing: vermijd browser-afhankelijke strings; gebruik ISO</li><li>Rekenen: werk met milliseconden en constructies als <code>setDate</code></li></ul><p>Voor complexheid: overweeg bibliotheken of <code>Temporal</code> (in opkomst).</p>`, code:`let nu = new Date();
-nu.toLocaleDateString("nl-NL");`, tryit:`<button onclick="les27()">Huidige datum/tijd</button><div id="output27" class="output"></div>`},
-  {nr:28,titel:"Modules (ES6 import/export)", uitleg:`<p>ES modules scheiden code in duidelijke eenheden. Gebruik named/default exports en importeer expliciet. Modules hebben hun eigen scope en ondersteunen tree-shaking.</p><ul><li>Exports: <code>export</code> en <code>export default</code></li><li>Imports: <code>import {naam} from 'pad'</code></li><li>Bundlers: tooling kan modules combineren voor productie</li></ul><p>Definieer een publieks-API per module en vermijd circulaire afhankelijkheden.</p>`, code:`// math.js
-export const PI = 3.14;
-export function optellen(a,b) { return a+b; }
-
-// main.js
-import { PI, optellen } from './math.js';`, tryit:`<button onclick="les28()">Module simulatie</button><div id="output28" class="output"></div>`},
-  {nr:29,titel:"Try / Catch Error Handling", uitleg:`<p>Met <code>try/catch</code> vang je runtime-fouten en houd je de applicatie stabiel. Gooi eigen fouten met <code>throw</code> of maak custom Error-typen.</p><ul><li>Finally: wordt altijd uitgevoerd (cleanup)</li><li>Rethrow: gooi door na logging als hoger niveau moet handelen</li><li>Async: combineer met <code>.catch</code> of <code>try/catch</code> bij <code>await</code></li></ul><p>Log informatief, maar lek geen gevoelige gegevens.</p>`, code:`try {
-  JSON.parse("ongeldige json");
-} catch (error) {
-  console.log("Fout:", error.message);
-} finally {
-  console.log("Altijd uitgevoerd");
-}`, tryit:`<button onclick="les29()">Forceer fout</button><div id="output29" class="output"></div>`},
-  {nr:30,titel:"Proxy", uitleg:`<p>Met <code>Proxy</code> kun je toegang tot objecten onderscheppen via traps (<code>get</code>, <code>set</code>, <code>has</code>, <code>deleteProperty</code>, etc.).</p><ul><li>Use-cases: validatie, logging, lazy loading, API-emulatie</li><li>Reflect: gebruik <code>Reflect</code> om standaardgedrag te behouden</li><li>Performance: proxies voegen overhead toe; meet bij grote aantallen</li></ul><p>Wees expliciet in welke eigenschappen je onderschept en respecteer invariants.</p>`, code:`let handler = {
-  get: (target, prop) => prop.toUpperCase()
-};
-let proxy = new Proxy({}, handler);
-proxy.naam; // "NAAM"`, tryit:`<button onclick="les30()">Proxy demo</button><div id="output30" class="output"></div>`},
-  {nr:31,titel:"Getters & Setters", uitleg:`<p>Getters berekenen waarden bij toegang, setters valideren of transformeren waarden bij toekenning. Ze creëren een nette API met encapsulatie.</p><ul><li>Readonly: alleen getter definieren</li><li>Validatie: check input in setter, gooi errors bij ongeldige waarden</li><li>Computed: combineer meerdere properties in een getter</li></ul><p>Zorg dat getters/settters snel blijven en geen zware side-effects hebben.</p>`, code:`let persoon = {
-  _naam: "Tom",
-  get naam() { return this._naam.toUpperCase(); },
-  set naam(value) { this._naam = value.trim(); }
-};`, tryit:`<button onclick="les31()">Getter demo</button><div id="output31" class="output"></div>`},
-  {nr:32,titel:"Private Fields (#)", uitleg:`<p>Private class fields met <code>#</code> zijn niet toegankelijk buiten de class. Dit geeft echte encapsulatie zonder conventies.</p><ul><li>Alleen binnen de class bruikbaar</li><li>Niet via bracket-notation of Reflect bereikbaar</li><li>Combineer met getters voor gecontroleerde toegang</li></ul><p>Gebruik private fields voor interne state die niet mag lekken.</p>`, code:`class Bankrekening {
-  #saldo = 0;
-  stort(bedrag) { this.#saldo += bedrag; }
-  getSaldo() { return this.#saldo; }
-}`, tryit:`<button onclick="les32()">Private field test</button><div id="output32" class="output"></div>`},
-  {nr:33,titel:"Event Delegation", uitleg:`<p>Delegation plaatst één listener op een ouder en handelt events van kinderen af via <code>event.target</code>. Dit werkt goed voor dynamisch toegevoegde elementen.</p><ul><li>Filteren: <code>e.target.matches(selector)</code> om specifieke elementen te vangen</li><li>Performance: minder listeners, minder geheugen</li><li>Grenzen: werkt op bubbelfase; sommige events bubbelen niet</li></ul><p>Structureer je DOM zodat relevante events op een logisch ouder komen.</p>`, code:`document.addEventListener("click", e => {
-  if (e.target.matches("button")) {
-    console.log("Geklikt op", e.target.textContent);
-  }
-});`, tryit:`<div id="deleg33"><button>A</button><button>B</button><button>C</button></div><div id="output33" class="output"></div>`},
-  {nr:34,titel:"Debounce", uitleg:`<p>Debounce wacht tot de gebruiker stopt met typen/scrollen voordat een functie draait. Dit voorkomt overmatige aanroepen bij snelle input.</p><ul><li>Leading vs trailing: start direct of na stilte</li><li>Cancel: expose een manier om te annuleren</li><li>Use-cases: zoekvelden, resize, invoervalidatie</li></ul><p>Voor continue acties (scrollpositie) is <code>throttle</code> vaak beter.</p>`, code:`function debounce(fn, delay) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn(...args), delay);
-  };
-}`, tryit:`<input id="deb34" placeholder="Typ snel..."><div id="output34" class="output">Wacht 500ms na laatste toets</div>`},
-  {nr:35,titel:"Web Workers", uitleg:`<p>Web Workers draaien JS in een aparte thread zodat UI responsief blijft. Communicatie verloopt via berichtpassing (<code>postMessage</code>/<code>onmessage</code>).</p><ul><li>Geen DOM-toegang in workers</li><li>Data: structured clone (kopie) – grote data kost tijd</li><li>Use-cases: parsers, beeldbewerking, crypto, AI</li></ul><p>Plan de berichtenstructuur en houd workers stateless waar mogelijk.</p>`, code:`let worker = new Worker("worker.js");
-worker.postMessage({taak: "zwaar"});
-worker.onmessage = e => console.log(e.data);`, tryit:`<button onclick="les35()">Simuleer zware taak</button><div id="output35" class="output"></div>`},
-  {nr:36,titel:"Intl (Internationalization)", uitleg:`<p><code>Intl</code> biedt locale-bewuste formatting voor datum, getal, valuta en collatie. Het respecteert landinstellingen en schrijfwijzen.</p><ul><li>Datum/tijd: <code>Intl.DateTimeFormat</code> met opties voor zones en stijl</li><li>Getal/valuta: <code>Intl.NumberFormat</code> met <code>currency</code> en precisie</li><li>Sorteren: <code>Intl.Collator</code> voor correcte alfabetisering</li></ul><p>Centraliseer formatting in utility-functies voor consistentie.</p>`, code:`new Intl.DateTimeFormat("nl-NL").format(new Date());
-new Intl.NumberFormat("nl-NL", {style: "currency", currency: "EUR"}).format(1234.56);`, tryit:`<button onclick="les36()">NL datum + valuta</button><div id="output36" class="output"></div>`},
-  {nr:37,titel:"Map & Set", uitleg:`<p><code>Map</code> slaat key→value op met willekeurige keytypes en behoudt invoervolgorde. <code>Set</code> bevat unieke waarden.</p><ul><li>Itereren: <code>for...of</code>, <code>map.forEach</code>, <code>set.forEach</code></li><li>Verschil met Object: geen prototype-keys, veilige grootte met <code>size</code></li><li>Conversie: <code>Array.from(map)</code> voor entries</li></ul><p>Kies Map/Set bij behoefte aan performant sleutelbeheer.</p>`, code:`let map = new Map();
-map.set("naam", "Lisa");
-let set = new Set([1,2,2,3]); // [1,2,3]`, tryit:`<button onclick="les37()">Unieke waarden</button><div id="output37" class="output"></div>`},
-  {nr:38,titel:"WeakMap & WeakSet", uitleg:`<p>WeakMap/WeakSet houden zwakke referenties naar objecten. Als er geen andere referenties zijn, kan GC opruimen. Ze zijn niet iterabel en vooral nuttig voor metadata/kasjes.</p><ul><li>Keys: alleen objecten</li><li>Niet iterabel: geen <code>size</code> of loops</li><li>Use-cases: privé-data bij objecten zonder lekken</li></ul><p>Gebruik ze voor geheime/ephemerale koppelingen.</p>`, code:`let wm = new WeakMap();
-let obj = {};
-wm.set(obj, "geheim");`, tryit:`<button onclick="les38()">WeakMap demo</button><div id="output38" class="output"></div>`},
-  {nr:39,titel:"Symbol", uitleg:`<p><code>Symbol</code> maakt unieke, onveranderbare identifiers. Handig als propertykeys om botsingen te voorkomen, of voor well-known symbols die gedrag beïnvloeden.</p><ul><li>Uniek: geen twee gelijke symbolen</li><li>Gebruik: verborgen properties, iterators (<code>Symbol.iterator</code>)</li><li>Registratie: <code>Symbol.for</code> deelt symbolen via een global registry</li></ul><p>Wees spaarzaam: documenteer symbol-key gebruik in je module.</p>`, code:`let id1 = Symbol("id");
-let id2 = Symbol("id");
-console.log(id1 === id2); // false`, tryit:`<button onclick="les39()">Symbol uniek?</button><div id="output39" class="output"></div>`},
-  {nr:40,titel:"Sandbox – Jouw Code", uitleg:`<p>Hier oefen je vrij met alle concepten: variabelen, functies, loops, async, DOM, en meer. Bouw kleine experimenten en leer door te doen.</p><ul><li>Plan: beschrijf kort wat je wil bouwen</li><li>Log: gebruik <code>console.log</code> voor inzicht</li><li>Itereer: verander, test, herhaal</li></ul><p>Probeer een mini-project: een rekenmachine, todo-lijst of fetch van een publieke API.</p>`, code:``, tryit:`<textarea id="sandbox" style="width:100%;height:200px;font-family:monospace">console.log("Ik ben een JavaScript-master!")</textarea><br>
-<button onclick="runSandbox()">Uitvoeren</button>
-<button class="red" onclick="clearConsole()">Console leeg</button>
-<div id="console"></div>`}
-];
-
-// ===================================
-// GENEREER ALLE LESSEN UIT JSON
-// ===================================
-const container = document.getElementById("lessons-container");
-let completed = 0;
-const total = lessen.length;
-
-lessen.forEach((les, index) => {
-  const div = document.createElement("div");
-  div.className = "lesson";
-  // Fix: replace 'lesX()' with 'runLes(X)' properly
-  let tryitHtml = les.tryit
-    .replace(/les(\d+)\(\)/g, `runLes($1)`) // Replace les1() -> runLes(1)
-    .replace(/output(\d+)/g, `output${les.nr}`)
-    .replace(/input(\d+)/g, `input${les.nr}`);
-    
-  div.innerHTML = `
-    <div class="lesson-header">Les ${les.nr} · ${les.titel}</div>
-    <div class="lesson-content">
-      ${les.uitleg}
-      ${les.code ? `<pre>${les.code}</pre>` : ""}
-      <div class="try-it">
-        <h4>Probeer het zelf</h4>
-        ${tryitHtml}
-      </div>
-    </div>
-  `;
-  container.appendChild(div);
-});
-
-// ===================================
-// PROGRESSIE + ALLE FUNCTIES
-// ===================================
-function updateProgress() {
-  completed++;
-  document.getElementById("progress").style.width = (completed / total * 100) + "%";
-}
-
-function log(msg) {
-  const c = document.getElementById("console");
-  if(c) {
-    c.innerHTML += `<div>> ${msg}</div>`;
-    c.scrollTop = c.scrollHeight;
-  }
-}
-
-// Globale functies voor specifieke lessen
-function les19save() {
-  const val = document.getElementById('ls19').value;
-  localStorage.setItem('mijnData', val);
-  document.getElementById('output19').innerHTML = 'Opgeslagen: ' + val;
-}
-function les19get() {
-  document.getElementById('output19').innerHTML = 'Gelezen: ' + (localStorage.getItem('mijnData') || 'niets');
-}
-
-function runSandbox() {
-  const code = document.getElementById("sandbox").value;
-  try {
-    // Redirect console.log
-    const oldLog = console.log;
-    console.log = (...args) => log(args.join(' '));
-    
-    // Run code
-    new Function(code)();
-    
-    // Restore (optioneel, maar handig voor debugging in devtools)
-    setTimeout(() => console.log = oldLog, 100);
-  } catch(e) {
-    log("Error: " + e.message);
-  }
-}
-
-function clearConsole() {
-  document.getElementById("console").innerHTML = "";
-}
-
-// Initialiseer Event Listeners na generatie
-setTimeout(() => {
-  // Les 8
-  const btn8 = document.getElementById('btn8');
-  if(btn8) {
-    let count = 0;
-    btn8.addEventListener('click', () => {
-      count++;
-      document.getElementById('count8').textContent = count;
+        // Initial calls
+        setTimeout(() => {
+            updateThumb();
+            setActiveLink();
+        }, 100);
     });
-  }
-  
-  // Les 33
-  const del33 = document.getElementById('deleg33');
-  if(del33) {
-    del33.addEventListener('click', e => {
-      if(e.target.tagName === 'BUTTON') {
-        document.getElementById('output33').innerHTML = 'Via delegation: ' + e.target.textContent;
-      }
-    });
-  }
-
-  // Les 34
-  const deb34 = document.getElementById('deb34');
-  if(deb34) {
-    let timeout;
-    deb34.addEventListener('input', (e) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        document.getElementById('output34').innerHTML = 'Debounced input: ' + e.target.value;
-      }, 500);
-    });
-  }
-}, 100);
-
-// Alle les-functies
-function runLes(nr) {
-  const output = document.getElementById(`output${nr}`);
-  // Fallback voor output als die niet bestaat (bijv les 8)
-  if(!output && nr !== 8 && nr !== 19) return; 
-
-  switch(nr) {
-    case 1: output.innerHTML = `Hallo <strong>${document.getElementById("input1").value}</strong>!`; break;
-    case 2: 
-      let a = +document.getElementById("a2").value;
-      let b = +document.getElementById("b2").value;
-      let op = document.getElementById("op2").value;
-      let result = op==='+' ? a+b : op==='-' ? a-b : op==='*' ? a*b : b!==0 ? (a/b).toFixed(2) : "∞";
-      document.getElementById("output2").innerHTML = `Resultaat: <strong>${result}</strong>`; break;
-    case 3:
-      let age = +document.getElementById("age3").value;
-      output.innerHTML = age >= 18 ? "Mag autorijden" : age >= 16 ? "Mag brommer rijden" : "Te jong";
-      break;
-    case 4:
-      let t = +document.getElementById("tafel4").value;
-      let s = "";
-      for(let i=1; i<=10; i++) s += `${i} x ${t} = ${i*t}<br>`;
-      output.innerHTML = s;
-      break;
-    case 5:
-      let nums = document.getElementById("array5").value.split(",").map(Number);
-      let res = nums.map(x => x*2).filter(x => x%2===0);
-      output.innerHTML = `Verdubbelde even getallen: ${res.join(", ")}`;
-      break;
-    case 6:
-      let n6 = document.getElementById("naam6").value;
-      let p = {naam: n6, begroet(){return `Hoi, ik ben ${this.naam}`}};
-      output.innerHTML = p.begroet();
-      break;
-    case 7:
-      document.getElementById("dom7").style.color = document.getElementById("dom7").style.color === "red" ? "black" : "red";
-      break;
-    // case 8 handled by listener
-    case 9:
-      output.innerHTML = "Kijk in de browser console (F12) voor scope details.";
-      { let scopeTest = "Alleen hier zichtbaar"; }
-      try { console.log(scopeTest); } catch(e) { output.innerHTML += "<br>Buiten block: " + e.message; }
-      break;
-    case 10:
-      output.innerHTML = document.getElementById("str10").value.toUpperCase();
-      break;
-    case 11:
-      output.innerHTML = "Random: " + Math.floor(Math.random() * 100 + 1);
-      break;
-    case 12:
-      let [x,y] = [10, 20];
-      output.innerHTML = `[a,b] = [10,20] -> a=${x}, b=${y}`;
-      break;
-    case 13:
-      let arr1 = [1,2], arr2 = [...arr1, 3, 4];
-      output.innerHTML = `[...[1,2], 3, 4] = [${arr2.join(", ")}]`;
-      break;
-    case 14:
-      class P { constructor(n){this.n=n} z(){return "Hoi "+this.n} }
-      output.innerHTML = new P(document.getElementById("cls14").value).z();
-      break;
-    case 15:
-      class P2 { constructor(n){this.n=n} }
-      class S extends P2 { constructor(n,s){super(n);this.s=s} info(){return this.n+" studeert "+this.s} }
-      output.innerHTML = new S("Tom", "Informatica").info();
-      break;
-    case 16:
-      output.innerHTML = "Wachten...";
-      new Promise(r => setTimeout(() => r("Promise opgelost!"), 1000))
-        .then(m => output.innerHTML = m);
-      break;
-    case 17:
-      (async () => {
-        output.innerHTML = "Async start...";
-        await new Promise(r => setTimeout(r, 1000));
-        output.innerHTML = "Async/Await klaar!";
-      })();
-      break;
-    case 18:
-      output.innerHTML = "Fetching...";
-      // Mock fetch
-      setTimeout(() => output.innerHTML = JSON.stringify({userId: 1, id: 1, title: "Mock Data", completed: false}), 500);
-      break;
-    // case 19 handled by les19save/get
-    case 20:
-      let obj = {naam: "Test", id: 123};
-      let json = JSON.stringify(obj);
-      output.innerHTML = `Object: {naam:"Test"} <br> JSON: ${json} <br> Terug: ${JSON.parse(json).naam}`;
-      break;
-    case 21:
-      output.innerHTML = "Timer loopt (2s)...";
-      setTimeout(() => output.innerHTML = "Timer af!", 2000);
-      break;
-    case 22:
-      // Closure simulation
-      if(!window.counter22) {
-         window.counter22 = (() => { let c=0; return ()=>++c; })();
-      }
-      output.innerHTML = "Teller: " + window.counter22();
-      break;
-    case 23:
-      let mapRes = [1,2,3].map(x=>x*2).join(",");
-      let filtRes = [1,2,3].filter(x=>x>1).join(",");
-      output.innerHTML = `Map(*2): ${mapRes} <br> Filter(>1): ${filtRes}`;
-      break;
-    case 24:
-      const add = a => b => a + b;
-      output.innerHTML = `add(4)(7) = ${add(4)(7)}`;
-      break;
-    case 25:
-      let nm = document.getElementById("temp25").value;
-      output.innerHTML = `Hallo ${nm}! (met backticks)`;
-      break;
-    case 26:
-      let email = document.getElementById("regex26").value;
-      let valid = /\S+@\S+\.\S+/.test(email);
-      output.innerHTML = valid ? "Geldig email formaat" : "Ongeldig";
-      break;
-    case 27:
-      output.innerHTML = new Date().toLocaleString("nl-NL");
-      break;
-    case 28:
-      output.innerHTML = "Modules werken alleen via HTTP/Server, maar syntax is correct.";
-      break;
-    case 29:
-      try { JSON.parse("invalid"); } catch(e) { output.innerHTML = "Gevangen fout: " + e.message; }
-      break;
-    case 30:
-      let proxy = new Proxy({a:1}, { get: (t,p) => p in t ? t[p] : "Bestaat niet!" });
-      output.innerHTML = "proxy.a: " + proxy.a + "<br>proxy.b: " + proxy.b;
-      break;
-    case 31:
-      let o31 = { _x: 0, get x(){return this._x}, set x(v){this._x=v} };
-      o31.x = 42;
-      output.innerHTML = "Getter/Setter test: " + o31.x;
-      break;
-    case 32:
-      output.innerHTML = "Private fields (#) zijn alleen binnen class zichtbaar. Syntax check OK.";
-      break;
-    // 33 delegation handled
-    // 34 debounce handled
-    case 35:
-      output.innerHTML = "Worker start (simulatie)...";
-      setTimeout(() => output.innerHTML = "Worker klaar (bericht ontvangen)", 800);
-      break;
-    case 36:
-      output.innerHTML = new Intl.NumberFormat("nl-NL", {style:"currency", currency:"EUR"}).format(1234.56);
-      break;
-    case 37:
-      let set = new Set([1,1,2,3]);
-      output.innerHTML = "Set([1,1,2,3]) -> " + [...set].join(", ");
-      break;
-    case 38:
-      output.innerHTML = "WeakMap is niet iterabel, maar werkt intern.";
-      break;
-    case 39:
-      output.innerHTML = "Symbol('id') === Symbol('id') -> " + (Symbol('id') === Symbol('id'));
-      break;
-    default:
-      if(output) output.innerHTML = `Actie voor les ${nr} uitgevoerd!`;
-  }
-  updateProgress();
-}
-
-// Start
-log("40 uitgebreide lessen geladen – veel succes!");
 </script>
 </body>
 </html>
