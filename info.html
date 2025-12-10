@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Information - Beginner Level</title>
+    <style>
+        body {
+            background: #121212;
+            color: #f5f5f5;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .jsinfo {
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border-left: 6px solid #ff4d4d;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+        .jsinfo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .jsinfo h3 { margin-top: 0; color: #ff6666; }
+        .jsinfo p { margin-bottom: 10px; }
+        code {
+            display: block;
+            white-space: pre-wrap;
+            background: #272727;
+            color: #f1f1f1;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff6666;
+            overflow-x: auto;
+        }
+        .usecase { font-style: italic; color: #ff9999; margin-top: -5px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<!-- JSON Key/Value -->
+<div class="jsinfo">
+    <h3>Take all keys and values from a JSON list</h3>
+    <p>Requires: <code>data</code> is a variable containing a JSON array or object.</p>
+    <code>Object.entries(data).forEach(([key, value]) => console.log(key, value));</code>
+    <p class="usecase">Use cases: Inspect JSON data, debugging, mapping keys to values, dynamic rendering.</p>
+</div>
+
+<!-- Event Listeners -->
+<div class="jsinfo">
+    <h3>Event Listeners</h3>
+    <p>Common event types:</p>
+    <code>
+        click, dblclick, mousedown, mouseup, mousemove, mouseenter, mouseleave,
+        keydown, keyup, input, change, submit, focus, blur,
+        pointerdown, pointerup, pointermove,
+        touchstart, touchmove, touchend,
+        dragstart, dragover, drop,
+        DOMContentLoaded, load, resize, scroll
+    </code>
+    <p>Usage:</p>
+    <code>document.addEventListener("eventType", handler)</code>
+    <p>Handler can be:</p>
+    <code>() => { /* code */ }</code>
+    <code>function() { /* code */ }</code>
+    <p class="usecase">Use cases: Responding to user actions, form validation, interactive UI, animations, logging events.</p>
+</div>
+
+<!-- Fetch -->
+<div class="jsinfo">
+    <h3>Simple Fetch</h3>
+    <code>
+        async function getData(url, type){
+        let fetched = await fetch(url);
+        let res = await fetched[type](); // type = "text" or "json"
+        return res;
+        }
+
+        // Example:
+        getData("https://hyperrushnet.github.io/assets/json/games.json", "json")
+        .then(data => console.log(data));
+    </code>
+    <p class="usecase">Use cases: Loading data from APIs, fetching JSON or text, dynamic content updates, AJAX-like behavior.</p>
+</div>
+
+<!-- For Loops -->
+<div class="jsinfo">
+    <h3>"For" Loops</h3>
+    <code>
+        for(let i = 0; i &lt; 8; i++){
+        console.log(i); // Executes 8 times
+        }
+    </code>
+    <p class="usecase">Use cases: Repetitive tasks, iterating arrays, generating elements, timed operations.</p>
+</div>
+
+<!-- If/Else -->
+<div class="jsinfo">
+    <h3>If/Else Conditionals</h3>
+    <code>
+        let score = 85;
+
+        if(score &gt;= 90){
+        console.log("A");
+        } else if(score &gt;= 75){
+        console.log("B");
+        } else {
+        console.log("C");
+        }
+    </code>
+    <p class="usecase">Use cases: Decision making, branching logic, validation, conditional rendering.</p>
+</div>
+
+<!-- Arrays -->
+<div class="jsinfo">
+    <h3>Arrays</h3>
+    <code>
+        let fruits = ["apple", "banana", "cherry"];
+        fruits.forEach(fruit =&gt; console.log(fruit));
+    </code>
+    <p class="usecase">Use cases: Storing multiple values, iterating data, lists of items, dynamic content rendering.</p>
+</div>
+
+<!-- Variables -->
+<div class="jsinfo">
+    <h3>Variables</h3>
+    <code>
+        let name = "John";      // Can change
+        const birthYear = 2000;  // Cannot change
+        var oldVar = "Legacy";   // Avoid using var
+    </code>
+    <p class="usecase">Use cases: Store data, constants, dynamic values, user input, configuration.</p>
+</div>
+
+<!-- Functions -->
+<div class="jsinfo">
+    <h3>Functions</h3>
+    <code>
+        function greet(name){
+        return `Hello, ${name}!`;
+        }
+
+        console.log(greet("Alice"));
+    </code>
+    <p class="usecase">Use cases: Reusable code blocks, computations, modularization, event handling.</p>
+</div>
+
+<!-- Objects -->
+<div class="jsinfo">
+    <h3>Objects</h3>
+    <code>
+        let person = {
+        name: "Alice",
+        age: 25,
+        greet: function(){
+        console.log(`Hi, I'm ${this.name}`);
+        }
+        };
+
+        person.greet();
+    </code>
+    <p class="usecase">Use cases: Represent structured data, store multiple properties, methods, configuration objects.</p>
+</div>
+
+<!-- Template Literals -->
+<div class="jsinfo">
+    <h3>Template Literals</h3>
+    <code>
+        let name = "Bob";
+        let greeting = `Hello, ${name}!`;
+        console.log(greeting);
+    </code>
+    <p class="usecase">Use cases: Easy string concatenation, dynamic messages, multi-line strings, HTML generation.</p>
+</div>
+
+<!-- Math -->
+<div class="jsinfo">
+    <h3>Math</h3>
+    <code>
+        console.log(Math.floor(Math.random() * 10)); // 0-9
+        console.log(Math.sqrt(16)); // 4
+    </code>
+    <p class="usecase">Use cases: Random numbers, calculations, rounding, geometry, simple games.</p>
+</div>
+
+<div class="jsinfo">
+    <h3>Wait helper function</h3>
+    <code>
+        async function wait(ms){
+        return new Promise(resolve => setTimeout(resolve, ms))
+        }
+        // Use example
+        console.log("console.log nr1")
+        await wait(2000) // waits 2 seconds.
+        console.log("console.log nr2")
+    </code>
+    <p class="usecase">Use cases: Waiting before action</p>
+</div>
+
+</body>
+</html>
