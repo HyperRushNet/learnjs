@@ -204,5 +204,32 @@
     <p class="usecase">Use cases: Waiting before action</p>
 </div>
 
+<div class="jsinfo">
+    <h3>Classes</h3>
+    <code>
+        // Define a class
+        class Person {
+        constructor(name, age) {
+        this.name = name; // Property
+        this.age = age;   // Property
+        }
+
+        // Method
+        greet() {
+        console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+        }
+        }
+
+        // Create instances
+        const alice = new Person("Alice", 25);
+        const bob = new Person("Bob", 30);
+
+        // Call methods
+        alice.greet(); // Hi, I'm Alice and I'm 25 years old.
+        bob.greet();   // Hi, I'm Bob and I'm 30 years old.
+    </code>
+    <p class="usecase">Use cases: Structuring data, reusable methods, ...</p>
+</div>
+
 </body>
 </html>
