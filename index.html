@@ -75,24 +75,26 @@
         const content = document.getElementById("content");
 
         const sectionsData = [
-            {title: "Take all keys and values from JSON", code: 'Object.entries(data).forEach(([key, value]) => console.log(key, value))'},
-            {title: "Event Listeners", code: '// Common events\nclick, dblclick, mousedown, mouseup, mouseenter, mouseleave\nkeydown, keyup, input, change, focus, blur\nsubmit, resize, scroll, load, DOMContentLoaded\npointerdown, touchstart, dragstart, drop', code2: 'element.addEventListener("click", handler)'},
-            {title: "Simple Fetch", code: 'async function get(url, type = "json") {\n const res = await fetch(url);\n return await res[type]();\n}\n// Usage\nget("data.json").then(data => console.log(data))'},
-            {title: "For Loops", code: 'for (let i = 0; i < 10; i++) {\n console.log(i);\n}'},
-            {title: "While Loops", code: 'while (x < 5) {\n alert("X < 5! X = " + x);\n}'},
-            {title: "If / Else", code: 'if (score >= 90) console.log("A");\nelse if (score >= 75) console.log("B");\nelse console.log("C");'},
-            {title: "Arrays", code: 'const fruits = ["apple", "banana", "cherry"];\nfruits.forEach(f => console.log(f));'},
-            {title: "Variables", code: 'let mutable = "changes ok";\nconst constant = "never changes";\nvar oldWay = "avoid if possible";'},
-            {title: "Functions", code: 'function greet(name) {\n return `Hello, ${name}!`;\n}\n// Arrow\nconst greet = name => `Hello, ${name}!`;'},
-            {title: "Objects", code: 'const person = {\n name: "Alice",\n greet() { console.log(`Hi, I\'m ${this.name}`); }\n};\nperson.greet();'},
-            {title: "Template Literals", code: 'const name = "Bob";\nconst msg = `Hello, ${name.toUpperCase()}!`;'},
-            {title: "Math & Random", code: '// Random int 0-9\nMath.floor(Math.random() * 10)\n\n// Random between min-max\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;'},
-            {title: "Wait / Delay", code: 'const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log("2 seconds later");'},
-            {title: "Classes", code: 'class Person {\n constructor(name, age) { this.name = name; this.age = age; }\n greet() { console.log(`I\'m ${this.name}, ${this.age}yo`); }\n}\nnew Person("Alice", 25).greet();'},
-            {title: "Nested Classes", code: 'class Math {\n static add(a, b) { return a + b; }\n static Utils = class { static double(n) { return n * 2; } }\n}\nMath.Utils.double(5); // 10'},
-            {title: ".padStart / .padEnd", code: '"5".padStart(3, "0") // "005"\n"Hi".padEnd(10, ".") // "Hi........"'},
-            {title: "Document createElement and children", code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'},
-            {title: ".includes()", code: 'const array = ["Value 1","Value 2", "Value 3"];\nif(array.includes("Value 1"){ /* JS code here */ })'}
+            {title: "1) Variables", code: 'const varName = "data" // Cannot be changed.\nlet varName = "data" // Can be changed.\n// ============\nlet varName; // Var declaration\nvarName = "data" // Var assignment.'},
+            {title: "2) Get JSON keys & values", code: 'Object.entries(data).forEach(([key, value]) => console.log(key, value))'},
+            {title: "3) Event Listeners", code: '// Common events\nclick, dblclick, mousedown, mouseup, mouseenter, mouseleave\nkeydown, keyup, input, change, focus, blur\nsubmit, resize, scroll, load, DOMContentLoaded\npointerdown, touchstart, dragstart, drop', code2: 'element.addEventListener("click", handler)'},
+            {title: "4) Simple Fetch", code: 'async function get(url, type = "json") {\n const res = await fetch(url);\n return await res[type]();\n}\n// Usage\nget("data.json").then(data => console.log(data))'},
+            {title: "5) For Loops", code: 'for (let i = 0; i < 10; i++) {\n console.log(i);\n}'},
+            {title: "6) While Loops", code: 'while (x < 5) {\n alert("X < 5! X = " + x);\n}'},
+            {title: "7) If / Else", code: 'if (score >= 90) console.log("A");\nelse if (score >= 75) console.log("B");\nelse console.log("C");'},
+            {title: "8) Arrays", code: 'const fruits = ["apple", "banana", "cherry"];\nfruits.forEach(f => console.log(f));'},
+            {title: "9) Variables", code: 'let mutable = "changes ok";\nconst constant = "never changes";\nvar oldWay = "avoid if possible";'},
+            {title: "10) Functions", code: 'function greet(name) {\n return `Hello, ${name}!`;\n}\n// Arrow\nconst greet = name => `Hello, ${name}!`;'},
+            {title: "11) Objects", code: 'const person = {\n name: "Alice",\n greet() { console.log(`Hi, I\'m ${this.name}`); }\n};\nperson.greet();'},
+            {title: "12) Template Literals", code: 'const name = "Bob";\nconst msg = `Hello, ${name.toUpperCase()}!`;'},
+            {title: "13) Math & Random", code: '// Random int 0-9\nMath.floor(Math.random() * 10)\n\n// Random between min-max\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;'},
+            {title: "14) Wait / Delay", code: 'const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log("2 seconds later");'},
+            {title: "15) Classes", code: 'class Person {\n constructor(name, age) { this.name = name; this.age = age; }\n greet() { console.log(`I\'m ${this.name}, ${this.age}yo`); }\n}\nnew Person("Alice", 25).greet();'},
+            {title: "16) Nested Classes", code: 'class Math {\n static add(a, b) { return a + b; }\n static Utils = class { static double(n) { return n * 2; } }\n}\nMath.Utils.double(5); // 10'},
+            {title: "17) .padStart / .padEnd", code: '"5".padStart(3, "0") // "005"\n"Hi".padEnd(10, ".") // "Hi........"'},
+            {title: "18) .createElement()", code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'},
+            {title: "19) .includes()", code: 'const array = ["Value 1","Value 2", "Value 3"];\nif(array.includes("Value 1"){ /* JS code here */ })'},
+            {title: "20) .push()", code: 'const array = ["Item 1","Item 2"]\narray.push("Item 3") // Adds "Item 3" to array.'}
         ];
 
         const sections = [];
