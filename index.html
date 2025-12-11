@@ -94,7 +94,8 @@
             {title: "17) .padStart / .padEnd", code: '"5".padStart(3, "0") // "005"\n"Hi".padEnd(10, ".") // "Hi........"'},
             {title: "18) .createElement()", code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'},
             {title: "19) .includes()", code: 'const array = ["Value 1","Value 2", "Value 3"];\nif(array.includes("Value 1"){ /* JS code here */ })'},
-            {title: "20) .push()", code: 'const array = ["Item 1","Item 2"]\narray.push("Item 3") // Adds "Item 3" to array.'}
+            {title: "20) .push()", code: 'const array = ["Item 1","Item 2"]\narray.push("Item 3") // Adds "Item 3" to array.'},
+            {title: "21) .trim()", code: 'const variable = "    Hello World!    "\nconsole.log(variable.trim()) // "Hello World!"'}
         ];
 
         const sections = [];
