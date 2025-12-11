@@ -5,442 +5,178 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JS Cheatsheet</title>
 <style>
-  :root {
-    --bg: #0d0d0d;
-    --text: #eee;
-    --accent: #d4a1a1;
-    --dark: #1a1a1a;
-    --border: #333;
-    --sidebar-w: 280px;
+  :root{--bg:#0d0d0d;--text:#eee;--accent:#d4a1a1;--dark:#1a1a1a;--border:#333;--sidebar-w:280px}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Segoe UI',Consolas,Monaco,monospace;line-height:1.7;overflow-x:hidden}
+  #sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#111;border-right:1px solid var(--border);padding:40px 24px 120px;overflow-y:auto;z-index:100;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+  #sidebar::-webkit-scrollbar{width:6px;background:transparent}
+  #sidebar::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+  #sidebar::-webkit-scrollbar-thumb:hover{background:#e6b8b8}
+  #menu-toggle{position:fixed;top:20px;left:20px;z-index:1100;background:rgba(30,30,30,.9);border:none;width:48px;height:48px;border-radius:12px;cursor:pointer;display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;backdrop-filter:blur(10px);box-shadow:0 4px 15px rgba(0,0,0,.4);transition:all .3s}
+  #menu-toggle span{width:22px;height:2px;background:#fff;border-radius:1px;transition:all .3s}
+  #menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+  #menu-toggle.active span:nth-child(2){opacity:0}
+  #menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+  #sidebar h1{font-size:1.55rem;margin:0 0 20px;color:#fff;text-align:center;font-weight:bold}
+  #nav-list{list-style:none;padding:0;margin:0}
+  #nav-list a{display:block;color:#bbb;text-decoration:none;padding:11px 16px;border-radius:8px;margin-bottom:6px;font-size:15px;transition:all .25s;position:relative}
+  #nav-list a:hover{color:#fff;background:rgba(212,161,161,.15);transform:translateX(6px)}
+  #nav-list a.active{color:#fff;background:rgba(212,161,161,.25);font-weight:600}
+  #nav-list a.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:70%;background:var(--accent);border-radius:2px}
+  #nav-list a.dimmed{opacity:0.25;pointer-events:none}
+  .main{margin-left:var(--sidebar-w);min-height:100vh;padding:30px 20px 100px;display:flex;justify-content:center; margin-bottom: 100px;}
+  .container{width:100%;max-width:820px}
+  h2{margin:70px 0 20px;font-size:1.7rem;border-bottom:1px solid var(--border);padding-bottom:10px;color:#fff;scroll-margin-top:100px}
+  pre{background:var(--dark);padding:18px;border-radius:10px;border:1px solid #333;overflow-x:auto;font-size:15.5px;margin:18px 0}
+  code{color:#ffb3b3}
+  .divider{margin:90px 0 50px;border:none;border-top:3px solid var(--accent);opacity:0.6}
+  .other-sections h2{margin-top:60px;opacity:0.7}
+  @media(max-width:1024px){:root{--sidebar-w:240px}}
+  @media(max-width:860px){
+    #menu-toggle{display:flex}
+    #sidebar{left:-100%;width:280px;transition:left .3s;box-shadow:8px 0 30px rgba(0,0,0,.6)}
+    #sidebar.active{left:0}
+    .main{margin-left:0}
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', Consolas, Monaco, monospace;
-    line-height: 1.7;
-  }
-
-  /* ==================== CUSTOM SCROLLBAR VOOR SIDEBAR ==================== */
-  #sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: var(--sidebar-w);
-    height: 100vh;
-    background: #111;
-    border-right: 1px solid var(--border);
-    padding: 40px 24px 120px;
-    overflow-y: auto;
-    z-index: 100;
-    /* Custom scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) transparent;
-  }
-  #sidebar::-webkit-scrollbar {
-    width: 6px;
-  }
-  #sidebar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  #sidebar::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 3px;
-    transition: background 0.3s;
-  }
-  #sidebar::-webkit-scrollbar-thumb:hover {
-    background: #e6b8b8;
-  }
-
-  /* ==================== HAMBURGER BUTTON ==================== */
-  #menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1100;
-    background: rgba(30,30,30,0.9);
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    cursor: pointer;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: all 0.3s ease;
-  }
-  #menu-toggle span {
-    width: 22px;
-    height: 2px;
-    background: #fff;
-    border-radius: 1px;
-    transition: all 0.3s;
-  }
-  #menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-  #menu-toggle.active span:nth-child(2) { opacity: 0; }
-  #menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-
-  /* ==================== SIDEBAR INHOUD ==================== */
-  #sidebar h1 {
-    font-size: 1.55rem;
-    margin: 0 0 20px;
-    color: #fff;
-    text-align: center;
-    font-weight: bold;
-  }
-  #nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  #nav-list a {
-    display: block;
-    color: #bbb;
-    text-decoration: none;
-    padding: 11px 16px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    font-size: 15px;
-    transition: all 0.25s ease;
-    position: relative;
-  }
-  #nav-list a:hover {
-    color: #fff;
-    background: rgba(212,161,161,0.15);
-    transform: translateX(6px);
-  }
-  #nav-list a.active {
-    color: #fff;
-    background: rgba(212,161,161,0.25);
-    font-weight: 600;
-  }
-  #nav-list a.active::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 50%;
-    transform: translateY(-50%);
-    width: 4px; height: 70%;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-  .tooltip {
-    visibility: hidden; opacity: 0;
-    background: #222; color: #fff;
-    font-size: 13px; padding: 6px 10px;
-    border-radius: 6px;
-    position: absolute;
-    left: 100%; margin-left: 12px;
-    top: 50%; transform: translateY(-50%);
-    white-space: nowrap;
-    transition: 0.3s;
-    pointer-events: none;
-  }
-  .tooltip::after {
-    content: ""; position: absolute;
-    top: 50%; right: 100%; margin-top: -5px;
-    border: 5px solid transparent;
-    border-right-color: #222;
-  }
-  #nav-list a:hover .tooltip { visibility: visible; opacity: 1; }
-
-  /* ==================== MAIN CONTENT ==================== */
-  .main {
-    margin-left: var(--sidebar-w);
-    min-height: 100vh;
-    padding: 60px 20px 50vh;
-    display: flex;
-    justify-content: center;
-  }
-  .container {
-    width: 100%;
-    max-width: 820px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 2.8rem;
-    margin: 0 0 80px;
-    color: #fff;
-  }
-  h2 {
-    margin: 80px 0 20px;
-    font-size: 1.7rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 10px;
-    color: #fff;
-    scroll-margin-top: 130px;
-  }
-  pre {
-    background: var(--dark);
-    padding: 18px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    overflow-x: auto;
-    font-size: 15.5px;
-    margin: 18px 0;
-  }
-  code { color: #ffb3b3; }
-  .usecase {
-    color: var(--accent);
-    font-size: 0.95rem;
-    margin: -10px 0 60px;
-    opacity: 0.9;
-  }
-
-  /* ==================== RESPONSIVE ==================== */
-  @media (max-width: 1024px) { :root { --sidebar-w: 240px; } }
-  @media (max-width: 860px) {
-    #menu-toggle { display: flex; }
-    #sidebar {
-      left: -100%;
-      width: 280px;
-      transition: left 0.3s ease;
-      box-shadow: 8px 0 30px rgba(0,0,0,0.6);
-    }
-    #sidebar.active { left: 0; }
-    .main { margin-left: 0; }
-  }
-  @media (max-width: 600px) {
-    h1 { font-size: 2.3rem; }
-    .main { padding: 40px 15px 200px; }
+  @media(max-width:600px){
+    .main{padding:20px 15px 150px}
+    h2{margin:60px 0 18px;font-size:1.6rem}
   }
 </style>
 </head>
 <body>
 
-<!-- Hamburger -->
 <button id="menu-toggle" aria-label="Menu">
   <span></span><span></span><span></span>
 </button>
 
-<!-- Sidebar -->
 <div id="sidebar">
   <h1>JS Cheatsheet</h1>
   <nav><ul id="nav-list"></ul></nav>
 </div>
 
-<!-- Content -->
 <div class="main">
-<div class="container">
-    <h1>JavaScript Cheatsheet - 2025</h1>
-
-    <h2>Take all keys and values from JSON</h2>
-    <pre><code>Object.entries(data).forEach(([key, value]) =>
-    console.log(key, value)
-)</code></pre>
-    <p class="usecase">Inspect • Debug • Map • Dynamic rendering</p>
-
-    <h2>Event Listeners</h2>
-    <pre><code>// Common events
-click, dblclick, mousedown, mouseup, mouseenter, mouseleave
-keydown, keyup, input, change, focus, blur
-submit, resize, scroll, load, DOMContentLoaded
-pointerdown, touchstart, dragstart, drop</code></pre>
-    <pre><code>element.addEventListener("click", handler)</code></pre>
-    <p class="usecase">UI interactions • Forms • Animations • Games</p>
-
-    <h2>Simple Fetch</h2>
-    <pre><code>async function get(url, type = "json") {
-    const res = await fetch(url);
-    return await res[type]();
-}
-
-// Usage
-getData("data.json").then(data => console.log(data))</code></pre>
-    <p class="usecase">API calls • Load JSON • Dynamic content</p>
-
-    <h2>For Loops</h2>
-    <pre><code>for (let i = 0; i < 10; i++) {
-    console.log(i);
-}</code></pre>
-
-    <h2>While Loops</h2>
-    <pre><code>
-while (/* requirement */ x < 5) {
-    /* JS code */
-    alert("X < 5! X = " + x)
-}
-</code></pre>
-
-
-    <h2>If / Else</h2>
-    <pre><code>if (score >= 90) console.log("A");
-else if (score >= 75) console.log("B");
-else console.log("C");</code></pre>
-
-    <h2>Arrays</h2>
-    <pre><code>const fruits = ["apple", "banana", "cherry"];
-fruits.forEach(f => console.log(f));</code></pre>
-
-    <h2>Variables</h2>
-    <pre><code>let mutable = "changes ok";
-const constant = "never changes";
-var oldWay = "avoid if possible";</code></pre>
-
-    <h2>Functions</h2>
-    <pre><code>function greet(name) {
-    return `Hello, ${name}!`;
-}
-// Arrow
-const greet = name => `Hello, ${name}!`;</code></pre>
-
-    <h2>Objects</h2>
-    <pre><code>const person = {
-    name: "Alice",
-    greet() { console.log(\`Hi, I'm \${this.name}\`); }
-};
-person.greet();</code></pre>
-
-    <h2>Template Literals</h2>
-    <pre><code>const name = "Bob";
-const msg = \`Hello, \${name.toUpperCase()}!\`;</code></pre>
-
-    <h2>Math & Random</h2>
-    <pre><code>// Random int 0-9
-Math.floor(Math.random() * 10)
-
-// Random between min-max
-const rand = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;</code></pre>
-
-    <h2>Wait / Delay</h2>
-    <pre><code>const wait = ms => new Promise(r => setTimeout(r, ms));
-
-await wait(2000);
-console.log("2 seconds later");</code></pre>
-
-    <h2>Classes</h2>
-    <pre><code>class Person {
-    constructor(name, age) {
-        this.name = name; this.age = age;
-    }
-    greet() {
-        console.log(\`I'm \${this.name}, \${this.age}yo\`);
-    }
-}
-new Person("Alice", 25).greet();</code></pre>
-
-    <h2>Nested Classes</h2>
-    <pre><code>class Math {
-    static add(a, b) { return a + b; }
-    static Utils = class {
-        static double(n) { return n * 2; }
-    }
-}
-Math.Utils.double(5); // 10</code></pre>
-
-    <h2>.padStart/End</h2>
-    <pre><code>/* .padStart - Adds chars to start of Str */
-    let result = "DataHere".padStart(
-    15, // total length
-    "a" // fill character
-);
-
-// ====================
-
-/* .padEnd - Adds chars to end of Str */
-console.log(result); // aaaaaaDataHere
-
-    let result = "DataHere".padEnd(
-    15, // total length
-    "a" // fill character
-);
-
-console.log(result); // DataHereaaaaaa
-
- </code></pre>
-
-    <h2>Document createElement and children</h2>
-    <pre><code>    // 1) Create parent and child elements
-    const parentDiv = document.createElement("div");
-    const childDiv = document.createElement("div");
-
-    // 2) Give them IDs for identification
-    parentDiv.id = "parent";
-    childDiv.id = "child";
-
-    // 3) Append parent to body
-    document.body.appendChild(parentDiv);
-
-    // 4) Set content of parent
-    parentDiv.innerText = "Hi";
-
-    // 5) Append child to parent and set its content
-    childDiv.innerText = "I am a child!";
-    parentDiv.appendChild(childDiv);
-
-    /* LESSON:
-       1) Declare elements: const parentDiv = document.createElement("div");
-       2) Give IDs for identification (optional but useful)
-       3) Append element to body or another parent using appendChild
-       4) Add content via innerText or innerHTML
-    */</code></pre>
-</div>
+  <div class="container">
+    <div id="content"></div>
+  </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.getElementById("sidebar");
   const nav = document.getElementById("nav-list");
-  const headings = document.querySelectorAll(".container h2");
+  const content = document.getElementById("content");
 
-  // Genereer navigatie
-  headings.forEach(h2 => {
-    const text = h2.textContent.trim();
-    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const sectionsData = [
+    {title: "Take all keys and values from JSON", code: 'Object.entries(data).forEach(([key, value]) => console.log(key, value))'},
+    {title: "Event Listeners", code: '// Common events\nclick, dblclick, mousedown, mouseup, mouseenter, mouseleave\nkeydown, keyup, input, change, focus, blur\nsubmit, resize, scroll, load, DOMContentLoaded\npointerdown, touchstart, dragstart, drop', code2: 'element.addEventListener("click", handler)'},
+    {title: "Simple Fetch", code: 'async function get(url, type = "json") {\n  const res = await fetch(url);\n  return await res[type]();\n}\n// Usage\nget("data.json").then(data => console.log(data))'},
+    {title: "For Loops", code: 'for (let i = 0; i < 10; i++) {\n  console.log(i);\n}'},
+    {title: "While Loops", code: 'while (x < 5) {\n  alert("X < 5! X = " + x);\n}'},
+    {title: "If / Else", code: 'if (score >= 90) console.log("A");\nelse if (score >= 75) console.log("B");\nelse console.log("C");'},
+    {title: "Arrays", code: 'const fruits = ["apple", "banana", "cherry"];\nfruits.forEach(f => console.log(f));'},
+    {title: "Variables", code: 'let mutable = "changes ok";\nconst constant = "never changes";\nvar oldWay = "avoid if possible";'},
+    {title: "Functions", code: 'function greet(name) {\n  return `Hello, ${name}!`;\n}\n// Arrow\nconst greet = name => `Hello, ${name}!`;'},
+    {title: "Objects", code: 'const person = {\n  name: "Alice",\n  greet() { console.log(`Hi, I\'m ${this.name}`); }\n};\nperson.greet();'},
+    {title: "Template Literals", code: 'const name = "Bob";\nconst msg = `Hello, ${name.toUpperCase()}!`;'},
+    {title: "Math & Random", code: '// Random int 0-9\nMath.floor(Math.random() * 10)\n\n// Random between min-max\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;'},
+    {title: "Wait / Delay", code: 'const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log("2 seconds later");'},
+    {title: "Classes", code: 'class Person {\n  constructor(name, age) { this.name = name; this.age = age; }\n  greet() { console.log(`I\'m ${this.name}, ${this.age}yo`); }\n}\nnew Person("Alice", 25).greet();'},
+    {title: "Nested Classes", code: 'class Math {\n  static add(a, b) { return a + b; }\n  static Utils = class { static double(n) { return n * 2; } }\n}\nMath.Utils.double(5); // 10'},
+    {title: ".padStart / .padEnd", code: '"5".padStart(3, "0")     // "005"\n"Hi".padEnd(10, ".")     // "Hi........"'},
+    {title: "Document createElement and children", code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'}
+  ];
+
+  const sections = [];
+  const links = [];
+
+  sectionsData.forEach(sec => {
+    const id = sec.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    const h2 = document.createElement("h2");
     h2.id = id;
+    h2.textContent = sec.title;
 
-    const a = document.createElement("a");
-    a.href = "#" + id;
-    a.innerHTML = `<span>${text}</span><span class="tooltip">${text}</span>`;
-    a.dataset.target = id; // voor scrollen in sidebar
-    nav.appendChild(a);
+    const pre1 = document.createElement("pre");
+    pre1.innerHTML = `<code>${sec.code}</code>`;
+    const wrapper = document.createElement("div");
+    wrapper.className = "section";
+    wrapper.appendChild(h2);
+    wrapper.appendChild(pre1);
+    if (sec.code2) {
+      const pre2 = document.createElement("pre");
+      pre2.innerHTML = `<code>${sec.code2}</code>`;
+      wrapper.appendChild(pre2);
+    }
+
+    const link = document.createElement("a");
+    link.href = "javascript:void(0)";
+    link.textContent = sec.title;
+    link.dataset.target = id;
+    nav.appendChild(link);
+
+    sections.push({wrapper, h2, id});
+    links.push(link);
   });
 
-  const links = document.querySelectorAll("#nav-list a");
+  function renderAll() {
+    content.innerHTML = "";
+    sections.forEach(s => content.appendChild(s.wrapper));
+    links.forEach(a => a.classList.remove("dimmed"));
+  }
 
-  // Active state + auto-scroll sidebar naar actieve link
-  const setActive = () => {
-    let found = "";
-    headings.forEach(h => {
-      if (h.getBoundingClientRect().top <= 140) found = h.id;
+  function renderSearch(matches) {
+    content.innerHTML = "";
+    if (matches.length === 0) {
+      content.innerHTML = "<h2 style='text-align:center;opacity:0.7'>Geen sectie gevonden</h2>";
+      links.forEach(a => a.classList.add("dimmed"));
+      return;
+    }
+    matches.forEach(s => content.appendChild(s.wrapper));
+    if (matches.length < sections.length) {
+      const divider = document.createElement("hr");
+      divider.className = "divider";
+      content.appendChild(divider);
+      const otherTitle = document.createElement("h2");
+      otherTitle.textContent = "Overige secties";
+      content.appendChild(otherTitle);
+      const other = document.createElement("div");
+      other.className = "other-sections";
+      sections.forEach(s => !matches.includes(s) && other.appendChild(s.wrapper.cloneNode(true)));
+      content.appendChild(other);
+    }
+    links.forEach(link => {
+      const isMatch = matches.some(m => m.id === link.dataset.target);
+      link.classList.toggle("dimmed", !isMatch);
     });
+  }
 
-    links.forEach(a => {
-      const isActive = a.getAttribute("href") === "#" + found;
-      a.classList.toggle("active", isActive);
-
-      // Scroll actieve link in beeld binnen sidebar (met offset voor header)
-      if (isActive) {
-        const linkTop = a.offsetTop;
-        const sidebarScroll = sidebar.scrollTop;
-        const sidebarHeight = sidebar.clientHeight;
-
-        if (linkTop < sidebarScroll || linkTop > sidebarScroll + sidebarHeight - 100) {
-          sidebar.scrollTo({
-            top: linkTop - 100,
-            behavior: "smooth"
-          });
-        }
+  function updateActive() {
+    let best = null;
+    let bestDist = Infinity;
+    sections.forEach(s => {
+      const rect = s.h2.getBoundingClientRect();
+      const dist = Math.abs(rect.top - 120);
+      if (rect.top <= 300 && dist < bestDist) {
+        bestDist = dist;
+        best = s;
       }
     });
-  };
+    if (!best) return;
 
-  window.addEventListener("scroll", setActive);
-  setActive();
+    links.forEach(link => {
+      const active = link.dataset.target === best.id;
+      link.classList.toggle("active", active);
+      if (active) {
+        link.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  }
 
-  // Klik: soepel scrollen + mobiel sluiten
   links.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute("href"));
-      window.scrollTo({
-        top: target.offsetTop - 120,
-        behavior: "smooth"
-      });
+    link.addEventListener("click", () => {
+      const target = document.getElementById(link.dataset.target);
+      window.scrollTo({ top: target.offsetTop - 100, behavior: "smooth" });
       if (window.innerWidth <= 860) {
         sidebar.classList.remove("active");
         document.getElementById("menu-toggle").classList.remove("active");
@@ -448,11 +184,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Hamburger toggle
   document.getElementById("menu-toggle").addEventListener("click", () => {
     sidebar.classList.toggle("active");
     document.getElementById("menu-toggle").classList.toggle("active");
   });
+
+  let searching = false;
+  document.addEventListener("keydown", e => {
+    if (e.key === "f" && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      if (searching) return;
+      searching = true;
+
+      const query = prompt("Zoek in secties:").trim();
+      if (!query) {
+        renderAll();
+        updateActive();
+        searching = false;
+        return;
+      }
+
+      const matches = sections.filter(s => 
+        s.h2.textContent.toLowerCase().includes(query.toLowerCase())
+      );
+
+      renderSearch(matches);
+
+      if (matches.length > 0) {
+        setTimeout(() => {
+          window.scrollTo({ top: matches[0].h2.offsetTop - 100, behavior: "smooth" });
+          updateActive();
+        }, 100);
+      }
+      searching = false;
+    }
+  });
+
+  window.addEventListener("scroll", updateActive);
+
+  renderAll();
+  updateActive();
 });
 </script>
 </body>
