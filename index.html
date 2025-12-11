@@ -1,184 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Cheatsheet</title>
-    <style>
-        :root {
-            --bg: #111;
-            --text: #eee;
-            --accent: #c88;
-            --dark: #1a1a1a;
-            --border: #333;
-        }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: Consolas, Monaco, 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-            padding-top: 80px;
-            scroll-behavior: smooth;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-        h1, h2 {
-            margin-top: 50px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-            color: #fff;
-        }
-        h1 {
-            text-align: center;
-            font-size: 2.4em;
-            margin-bottom: 40px;
-        }
-        pre {
-            background: var(--dark);
-            padding: 14px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 15px;
-            margin: 16px 0;
-            border: 1px solid #333;
-        }
-        code {
-            color: #ff9d9d;
-        }
-        .usecase {
-            color: var(--accent);
-            font-size: 0.95em;
-            margin: 8px 0 40px;
-            opacity: 0.9;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Cheatsheet</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --text: #eee;
+    --accent: #d4a1a1;
+    --dark: #1a1a1a;
+    --border: #333;
+    --sidebar-w: 280px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Consolas, Monaco, monospace;
+    line-height: 1.7;
+  }
 
-        /* ==================== NAVIGATIEBAR ==================== */
-        #nav-bar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 56px;
-            background: #1e1e1e;
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-        }
-        #nav-inner {
-            height: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        #nav-inner::-webkit-scrollbar { display: none; }
+  /* ==================== CUSTOM SCROLLBAR VOOR SIDEBAR ==================== */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: #111;
+    border-right: 1px solid var(--border);
+    padding: 40px 24px 120px;
+    overflow-y: auto;
+    z-index: 100;
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+  }
+  #sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+  #sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #sidebar::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+    transition: background 0.3s;
+  }
+  #sidebar::-webkit-scrollbar-thumb:hover {
+    background: #e6b8b8;
+  }
 
-        /* Custom scrollbar */
-        .scrollbar-track {
-            position: absolute;
-            bottom: 8px;
-            left: 20px;
-            right: 20px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        #nav-bar:hover .scrollbar-track,
-        #nav-bar.touch .scrollbar-track { opacity: 1; }
+  /* ==================== HAMBURGER BUTTON ==================== */
+  #menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    background: rgba(30,30,30,0.9);
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+  }
+  #menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+  #menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+  #menu-toggle.active span:nth-child(2) { opacity: 0; }
+  #menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-        .scrollbar-thumb {
-            position: absolute;
-            top: 0; left: 0;
-            height: 100%;
-            width: 100px;
-            background: var(--accent);
-            border-radius: 2px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        #nav-bar:hover .scrollbar-thumb { opacity: 1; }
+  /* ==================== SIDEBAR INHOUD ==================== */
+  #sidebar h1 {
+    font-size: 1.55rem;
+    margin: 0 0 20px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+  }
+  #nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #nav-list a {
+    display: block;
+    color: #bbb;
+    text-decoration: none;
+    padding: 11px 16px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+  #nav-list a:hover {
+    color: #fff;
+    background: rgba(212,161,161,0.15);
+    transform: translateX(6px);
+  }
+  #nav-list a.active {
+    color: #fff;
+    background: rgba(212,161,161,0.25);
+    font-weight: 600;
+  }
+  #nav-list a.active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 4px; height: 70%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .tooltip {
+    visibility: hidden; opacity: 0;
+    background: #222; color: #fff;
+    font-size: 13px; padding: 6px 10px;
+    border-radius: 6px;
+    position: absolute;
+    left: 100%; margin-left: 12px;
+    top: 50%; transform: translateY(-50%);
+    white-space: nowrap;
+    transition: 0.3s;
+    pointer-events: none;
+  }
+  .tooltip::after {
+    content: ""; position: absolute;
+    top: 50%; right: 100%; margin-top: -5px;
+    border: 5px solid transparent;
+    border-right-color: #222;
+  }
+  #nav-list a:hover .tooltip { visibility: visible; opacity: 1; }
 
-        /* Links */
-        #nav-bar a {
-            color: #aaa;
-            text-decoration: none;
-            margin-right: 26px;
-            padding: 8px 0;
-            flex-shrink: 0;
-            position: relative;
-            font-size: 14.5px;
-            transition: color 0.2s;
-        }
-        #nav-bar a:hover { color: #fff; }
-        #nav-bar a::after {
-            content: "";
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-        #nav-bar a:hover::after,
-        #nav-bar a.active::after { width: 100%; }
-        #nav-bar a.active { color: #fff; }
+  /* ==================== MAIN CONTENT ==================== */
+  .main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+    padding: 60px 20px 50vh;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    width: 100%;
+    max-width: 820px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin: 0 0 80px;
+    color: #fff;
+  }
+  h2 {
+    margin: 80px 0 20px;
+    font-size: 1.7rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    color: #fff;
+    scroll-margin-top: 130px;
+  }
+  pre {
+    background: var(--dark);
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    overflow-x: auto;
+    font-size: 15.5px;
+    margin: 18px 0;
+  }
+  code { color: #ffb3b3; }
+  .usecase {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin: -10px 0 60px;
+    opacity: 0.9;
+  }
 
-        /* Tooltip */
-        .tooltip {
-            visibility: hidden;
-            background: #333;
-            color: #fff;
-            font-size: 13px;
-            padding: 6px 10px;
-            border-radius: 4px;
-            position: absolute;
-            bottom: 140%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s, visibility 0.3s;
-            z-index: 10;
-            pointer-events: none;
-        }
-        .tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border: 5px solid transparent;
-            border-top-color: #333;
-        }
-        #nav-bar a:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            body { padding-top: 70px; }
-            #nav-bar { height: 50px; }
-            #nav-bar a { font-size: 13.5px; margin-right: 18px; }
-        }
-    </style>
+  /* ==================== RESPONSIVE ==================== */
+  @media (max-width: 1024px) { :root { --sidebar-w: 240px; } }
+  @media (max-width: 860px) {
+    #menu-toggle { display: flex; }
+    #sidebar {
+      left: -100%;
+      width: 280px;
+      transition: left 0.3s ease;
+      box-shadow: 8px 0 30px rgba(0,0,0,0.6);
+    }
+    #sidebar.active { left: 0; }
+    .main { margin-left: 0; }
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 2.3rem; }
+    .main { padding: 40px 15px 200px; }
+  }
+</style>
 </head>
 <body>
 
-<div id="nav-bar">
-    <div id="nav-inner"></div>
-    <div class="scrollbar-track"><div class="scrollbar-thumb"></div></div>
+<!-- Hamburger -->
+<button id="menu-toggle" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <h1>JS Cheatsheet</h1>
+  <nav><ul id="nav-list"></ul></nav>
 </div>
 
+<!-- Content -->
+<div class="main">
 <div class="container">
-    <h1>JavaScript Cheatsheet</h1>
+    <h1>JavaScript Cheatsheet - 2025</h1>
 
     <h2>Take all keys and values from JSON</h2>
     <pre><code>Object.entries(data).forEach(([key, value]) =>
@@ -305,73 +352,108 @@ console.log(result); // aaaaaaDataHere
 console.log(result); // DataHereaaaaaa
 
  </code></pre>
+
+    <h2>Document createElement and children</h2>
+    <pre><code>    // 1) Create parent and child elements
+    const parentDiv = document.createElement("div");
+    const childDiv = document.createElement("div");
+
+    // 2) Give them IDs for identification
+    parentDiv.id = "parent";
+    childDiv.id = "child";
+
+    // 3) Append parent to body
+    document.body.appendChild(parentDiv);
+
+    // 4) Set content of parent
+    parentDiv.innerText = "Hi";
+
+    // 5) Append child to parent and set its content
+    childDiv.innerText = "I am a child!";
+    parentDiv.appendChild(childDiv);
+
+    /* LESSON:
+       1) Declare elements: const parentDiv = document.createElement("div");
+       2) Give IDs for identification (optional but useful)
+       3) Append element to body or another parent using appendChild
+       4) Add content via innerText or innerHTML
+    */</code></pre>
+</div>
 </div>
 
-
 <script>
-    // Auto generate navigation + custom scrollbar + active state
-    document.addEventListener("DOMContentLoaded", () => {
-        const navInner = document.getElementById("nav-inner");
-        const thumb = document.querySelector(".scrollbar-thumb");
-        const headings = document.querySelectorAll("h2");
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("sidebar");
+  const nav = document.getElementById("nav-list");
+  const headings = document.querySelectorAll(".container h2");
 
-        headings.forEach(h2 => {
-            const text = h2.textContent.trim();
-            const slug = text.toLowerCase()
-                .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '')
-                .replace(/\s+/g, '-');
+  // Genereer navigatie
+  headings.forEach(h2 => {
+    const text = h2.textContent.trim();
+    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    h2.id = id;
 
-            h2.id = slug;
+    const a = document.createElement("a");
+    a.href = "#" + id;
+    a.innerHTML = `<span>${text}</span><span class="tooltip">${text}</span>`;
+    a.dataset.target = id; // voor scrollen in sidebar
+    nav.appendChild(a);
+  });
 
-            const a = document.createElement("a");
-            a.href = "#" + slug;
-            a.innerHTML = `<span>${text}</span><span class="tooltip">${text}</span>`;
-            navInner.appendChild(a);
-        });
+  const links = document.querySelectorAll("#nav-list a");
 
-        // Update custom scrollbar
-        function updateThumb() {
-            const total = navInner.scrollWidth;
-            const visible = navInner.clientWidth;
-
-            if (total <= visible) {
-                thumb.style.width = "0px";
-                return;
-            }
-
-            const ratio = visible / total;
-            const thumbWidth = Math.max(ratio * visible, 40);
-            thumb.style.width = thumbWidth + "px";
-
-            const scrollPercent = navInner.scrollLeft / (total - visible);
-            const trackWidth = document.querySelector(".scrollbar-track").clientWidth;
-            const maxLeft = trackWidth - thumbWidth;
-            thumb.style.left = (scrollPercent * maxLeft) + "px";
-        }
-
-        // Active link highlighting
-        function setActiveLink() {
-            let current = "";
-            headings.forEach(h2 => {
-                const rect = h2.getBoundingClientRect();
-                if (rect.top <= 100) current = h2.id;
-            });
-
-            document.querySelectorAll("#nav-bar a").forEach(a => {
-                a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-            });
-        }
-
-        navInner.addEventListener("scroll", updateThumb);
-        window.addEventListener("resize", updateThumb);
-        window.addEventListener("scroll", setActiveLink);
-
-        // Initial calls
-        setTimeout(() => {
-            updateThumb();
-            setActiveLink();
-        }, 100);
+  // Active state + auto-scroll sidebar naar actieve link
+  const setActive = () => {
+    let found = "";
+    headings.forEach(h => {
+      if (h.getBoundingClientRect().top <= 140) found = h.id;
     });
+
+    links.forEach(a => {
+      const isActive = a.getAttribute("href") === "#" + found;
+      a.classList.toggle("active", isActive);
+
+      // Scroll actieve link in beeld binnen sidebar (met offset voor header)
+      if (isActive) {
+        const linkTop = a.offsetTop;
+        const sidebarScroll = sidebar.scrollTop;
+        const sidebarHeight = sidebar.clientHeight;
+
+        if (linkTop < sidebarScroll || linkTop > sidebarScroll + sidebarHeight - 100) {
+          sidebar.scrollTo({
+            top: linkTop - 100,
+            behavior: "smooth"
+          });
+        }
+      }
+    });
+  };
+
+  window.addEventListener("scroll", setActive);
+  setActive();
+
+  // Klik: soepel scrollen + mobiel sluiten
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      window.scrollTo({
+        top: target.offsetTop - 120,
+        behavior: "smooth"
+      });
+      if (window.innerWidth <= 860) {
+        sidebar.classList.remove("active");
+        document.getElementById("menu-toggle").classList.remove("active");
+      }
+    });
+  });
+
+  // Hamburger toggle
+  document.getElementById("menu-toggle").addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    document.getElementById("menu-toggle").classList.toggle("active");
+  });
+});
 </script>
 </body>
 </html>
