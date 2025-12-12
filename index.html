@@ -1,62 +1,231 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clean, fast & modern JavaScript cheatsheet – by HyperRush">
     <link rel="icon" href="https://www.svgrepo.com/show/303206/javascript-logo.svg">
-    <title>Cheatsheet - HyperRush</title>
+    <title>JS Cheatsheet • HyperRush</title>
 
+    <!-- Prism.js Tomorrow Night Theme -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 
     <style>
-        :root{--bg:#0d0d0d;--text:#eee;--accent:#d4a1a1;--dark:#1a1a1a;--border:#333;--sidebar-w:280px}
-        *{box-sizing:border-box}
-        body{margin:0;background:var(--bg);color:var(--text);font-family:'Segoe UI',Consolas,Monaco,monospace;line-height:1.7;overflow-x:hidden}
-        #sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#111;border-right:1px solid var(--border);padding:40px 24px 120px;overflow-y:auto;z-index:100;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
-        #sidebar::-webkit-scrollbar{width:6px;background:transparent}
-        #sidebar::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
-        #sidebar::-webkit-scrollbar-thumb:hover{background:#e6b8b8}
-        #menu-toggle{position:fixed;top:20px;left:20px;z-index:1100;background:rgba(30,30,30,.9);border:none;width:48px;height:48px;border-radius:12px;cursor:pointer;display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;backdrop-filter:blur(10px);box-shadow:0 4px 15px rgba(0,0,0,.4);transition:all .3s}
-        #menu-toggle span{width:22px;height:2px;background:#fff;border-radius:1px;transition:all .3s}
-        #menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
-        #menu-toggle.active span:nth-child(2){opacity:0}
-        #menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
-        #sidebar h1{font-size:1.55rem;margin:0 0 20px;color:#fff;text-align:center;font-weight:bold}
-        #nav-list{list-style:none;padding:0;margin:0}
-        #nav-list a{display:block;color:#bbb;text-decoration:none;padding:11px 16px;border-radius:8px;margin-bottom:6px;font-size:15px;transition:all .25s;position:relative}
-        #nav-list a:hover{color:#fff;background:rgba(212,161,161,.15);transform:translateX(6px)}
-        #nav-list a.active{color:#fff;background:rgba(212,161,161,.25);font-weight:600}
-        #nav-list a.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:70%;background:var(--accent);border-radius:2px}
-        #nav-list a.dimmed{opacity:0.25;pointer-events:none}
-        .main{margin-left:var(--sidebar-w);min-height:100vh;padding:30px 20px 100px;display:flex;justify-content:center;margin-bottom:100px}
-        .container{width:100%;max-width:820px}
-        h2{margin:70px 0 20px;font-size:1.7rem;border-bottom:1px solid var(--border);padding-bottom:10px;color:#fff;scroll-margin-top:100px}
-        pre{background:#1e1e1e;padding:18px;border-radius:10px;border:1px solid #333;overflow-x:auto;margin:18px 0;box-shadow:0 4px 10px rgba(0,0,0,0.3)}
-        pre code{font-size:15.5px;line-height:1.6}
-        .divider{margin:90px 0 50px;border:none;border-top:3px solid var(--accent);opacity:0.6}
-        .other-sections h2{margin-top:60px;opacity:0.7}
-        @media(max-width:1024px){:root{--sidebar-w:240px}}
-        @media(max-width:860px){
-            #menu-toggle{display:flex}
-            #sidebar{left:-100%;width:280px;transition:left .3s;box-shadow:8px 0 30px rgba(0,0,0,.6)}
-            #sidebar.active{left:0}
-            .main{margin-left:0}
+        :root {
+            --bg: #0d0d0d;
+            --text: #eee;
+            --accent: #d4a1a1;
+            --border: #333;
+            --sidebar-w: 280px;
         }
-        @media(max-width:600px){
-            .main{padding:20px 15px 150px}
-            h2{margin:60px 0 18px;font-size:1.6rem}
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Consolas, Monaco, 'Courier New', monospace;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--sidebar-w);
+            height: 100vh;
+            background: #111;
+            border-right: 1px solid var(--border);
+            padding: 40px 24px 120px;
+            overflow-y: auto;
+            z-index: 100;
+            transition: left .3s;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+        #sidebar::-webkit-scrollbar { width: 6px; background: transparent; }
+        #sidebar::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+        #sidebar::-webkit-scrollbar-thumb:hover { background: #e6b8b8; }
+
+        #sidebar h1 {
+            font-size: 1.55rem;
+            margin: 0 0 24px;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        #search-wrapper {
+            margin: 20px 0 30px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 13px 16px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: all .2s;
+        }
+        #search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 161, 161, 0.2);
+        }
+        #search-input::placeholder { color: #888; }
+
+        #nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #nav-list a {
+            display: block;
+            color: #bbb;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            font-size: 15px;
+            transition: all .25s;
+            position: relative;
+        }
+        #nav-list a:hover {
+            color: #fff;
+            background: rgba(212, 161, 161, .15);
+            transform: translateX(6px);
+        }
+        #nav-list a.active {
+            color: #fff;
+            background: rgba(212, 161, 161, .25);
+            font-weight: 600;
+        }
+        #nav-list a.active::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        #nav-list a.dimmed {
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: var(--sidebar-w);
+            min-height: 100vh;
+            padding: 40px 20px 120px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 860px;
+        }
+
+        h2 {
+            margin: 80px 0 24px;
+            font-size: 1.8rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            color: #fff;
+            scroll-margin-top: 120px;
+        }
+
+        pre {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        pre code {
+            font-size: 15.8px;
+            line-height: 1.65;
+        }
+
+        .divider {
+            margin: 100px 0 60px;
+            border: none;
+            border-top: 3px solid var(--accent);
+            opacity: 0.6;
+        }
+        .other-sections h2 {
+            margin-top: 70px;
+            opacity: 0.7;
+            font-size: 1.5rem;
+        }
+
+        /* Hamburger Menu */
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: rgba(30,30,30,.95);
+            border: none;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            cursor: pointer;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 6px 20px rgba(0,0,0,.5);
+            transition: all .3s;
+        }
+        #menu-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all .3s;
+        }
+        #menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        #menu-toggle.active span:nth-child(2) { opacity: 0; }
+        #menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+        /* Responsive */
+        @media (max-width: 1024px) { :root { --sidebar-w: 250px; } }
+        @media (max-width: 860px) {
+            #menu-toggle { display: flex; }
+            #sidebar { left: -100%; width: 300px; box-shadow: 10px 0 40px rgba(0,0,0,.7); }
+            #sidebar.active { left: 0; }
+            .main { margin-left: 0; }
+        }
+        @media (max-width: 600px) {
+            .main { padding: 20px 15px 160px; }
+            h2 { margin: 70px 0 20px; font-size: 1.65rem; }
         }
     </style>
 </head>
 <body>
 
-<button id="menu-toggle" aria-label="Menu">
+<button id="menu-toggle" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
 </button>
 
 <div id="sidebar">
     <h1>JS Cheatsheet</h1>
-    <nav><ul id="nav-list"></ul></nav>
+    <div id="search-wrapper">
+        <input type="text" id="search-input" placeholder="Search sections... (Ctrl+F)">
+    </div>
+    <nav>
+        <ul id="nav-list"></ul>
+    </nav>
 </div>
 
 <div class="main">
@@ -65,7 +234,7 @@
     </div>
 </div>
 
-<!-- Prism.js Core + JS language -->
+<!-- Prism.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
@@ -74,212 +243,106 @@
         const sidebar = document.getElementById("sidebar");
         const nav = document.getElementById("nav-list");
         const content = document.getElementById("content");
+        const searchInput = document.getElementById("search-input");
 
         const sectionsData = [
             {
-                title: "Variables",
-                code: `const varName = "data"; // Cannot be reassigned
-let varName = "data";     // Can be reassigned
-
-// Declaration vs assignment
-let varName;      // Declaration
-varName = "data"; // Assignment`
+                "title": "Variables",
+                "code": "const name = \"data\";     // Cannot be reassigned\nlet value = \"data\";      // Can be reassigned\n\n// Declaration vs assignment\nlet x;         // Declaration\nx = \"hello\";  // Assignment"
             },
             {
-                title: "Template Literals",
-                code: `const name = "Bob";
-const msg = \`Hello, \${name.toUpperCase()}!\`; // "Hello, BOB!"`
+                "title": "Template Literals",
+                "code": "const name = \"Alice\";\nconst greeting = `Hello, ${name.toUpperCase()}!`;\n// → \"Hello, ALICE!\""
             },
             {
-                title: "Functions",
-                code: `// Regular function
-function greet(name) {
-  return \`Hello, \${name}!\`;
-}
-
-// Arrow function
-const greet = name => \`Hello, \${name}!\`;`
+                "title": "Functions",
+                "code": "// Regular function\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrow function\nconst greet = name => `Hello, ${name}!`;"
             },
             {
-                title: "Objects",
-                code: `const person = {
-  name: "Alice",
-  greet() {
-    console.log(\`Hi, I'm \${this.name}\`);
-  }
-};
-person.greet();`
+                "title": "Objects",
+                "code": "const person = {\n  name: \"Alice\",\n  greet() {\n    console.log(`Hi, I'm ${this.name}`);\n  }\n};\nperson.greet();"
             },
             {
-                title: "Object.entries()",
-                code: `const data = { name: "HyperRush", score: 100, online: true };
-const entries = Object.entries(data);
-console.log(entries);
-// → [["name", "HyperRush"], ["score", 100], ["online", true]]`
+                "title": "Object.entries()",
+                "code": "const obj = { name: \"HyperRush\", score: 100, online: true };\nconst entries = Object.entries(obj);\nconsole.log(entries);\n// → [[\"name\", 'HyperRush'], [\"score\", 100], [\"online\", true]]"
             },
             {
-                title: "Get JSON keys & values",
-                code: `Object.entries(data).forEach(([key, value]) => {
-  console.log(key, "→", value);
-});`
+                "title": "Loop over object keys/values",
+                "code": "Object.entries(obj).forEach(([key, value]) => {\n  console.log(`${key} → ${value}`);\n});"
             },
             {
-                title: "Arrays",
-                code: `const fruits = ["apple", "banana", "cherry"];
-fruits.forEach(f => console.log(f));`
+                "title": "Arrays",
+                "code": "const fruits = [\"apple\", \"banana\", \"cherry\"];\nfruits.forEach(f => console.log(f));"
             },
             {
-                title: ".forEach()",
-                code: `const entries = [["name", "HyperRush"], ["score", 100], ["online", true]];
-
-entries.forEach(([key, value]) => {
-  console.log(\`key: \${key} | value: \${value}\`);
-});`
+                "title": ".forEach()",
+                "code": "const pairs = [[\"name\", \"HyperRush\"], [\"score\", 100]];\npairs.forEach(([key, val]) => {\n  console.log(`key: ${key} | value: ${val}`);\n});"
             },
             {
-                title: ".push()",
-                code: `let array = ["Item 1", "Item 2"];
-array.push("Item 3"); // → ["Item 1", "Item 2", "Item 3"]`
+                "title": ".push()",
+                "code": "let arr = [\"A\", \"B\"];\narr.push(\"C\"); // → [\"A\", \"B\", \"C\"]"
             },
             {
-                title: ".includes()",
-                code: `const array = ["Value 1", "Value 2", "Value 3"];
-if (array.includes("Value 1")) {
-  console.log("Found it!");
-}`
+                "title": ".includes()",
+                "code": "const list = [\"apple\", \"banana\"];\nif (list.includes(\"apple\")) {\n  console.log(\"Found!\");\n}"
             },
             {
-                title: ".trim()",
-                code: `const str = "   Hello World!   ";
-console.log(str.trim()); // "Hello World!"`
+                "title": ".trim()",
+                "code": "const text = \"  Hello World  \";\nconsole.log(text.trim()); // \"Hello World\""
             },
             {
-                title: ".padStart / .padEnd",
-                code: `"5".padStart(3, "0");   // "005"
-"Hi".padEnd(10, ".");   // "Hi........"`
+                "title": ".padStart / .padEnd",
+                "code": "\"5\".padStart(4, \"0\");   // \"0005\"\n\"Hi\".padEnd(10, \".\");    // \"Hi........\""
             },
             {
-                title: "Math & Random",
-                code: `// Random int from 0–9
-Math.floor(Math.random() * 10);
-
-// Random int between min (inclusive) and max (inclusive)
-const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-rand(5, 10); // e.g. 7`
+                "title": "Math & Random",
+                "code": "// Random int 0–9\nMath.floor(Math.random() * 10);\n\n// Random int min–max (inclusive)\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;\nrand(1, 100);"
             },
             {
-                title: "If / Else",
-                code: `const score = 85;
-
-if (score >= 90) console.log("A");
-else if (score >= 75) console.log("B");
-else console.log("C");`
+                "title": "If / Else",
+                "code": "const score = 88;\nif (score >= 90) console.log(\"A\");\nelse if (score >= 75) console.log(\"B\");\nelse console.log(\"C\");"
             },
             {
-                title: "For Loops",
-                code: `for (let i = 0; i < 10; i++) {
-  console.log(i);
-}`
+                "title": "For Loops",
+                "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}"
             },
             {
-                title: "While Loops",
-                code: `let x = 0;
-while (x < 5) {
-  console.log("X < 5! X =", x);
-  x++;
-}`
+                "title": "While Loops",
+                "code": "let i = 0;\nwhile (i < 5) {\n  console.log(\"Count:\", i);\n  i++;\n}"
             },
             {
-                title: "Classes",
-                code: `class Person {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  greet() {
-    console.log(\`I'm \${this.name}, \${this.age} years old\`);
-  }
-}
-
-new Person("Alice", 25).greet();`
+                "title": "Classes",
+                "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n  greet() {\n    console.log(`I'm ${this.name}, ${this.age}yo`);\n  }\n}\nnew Person(\"Alice\", 25).greet();"
             },
             {
-                title: "Nested/Static Classes",
-                code: `class Math {
-  static add(a, b) { return a + b; }
-  static Utils = class {
-    static double(n) { return n * 2; }
-  }
-}
-
-Math.Utils.double(5); // 10`
+                "title": "Static & Nested Classes",
+                "code": "class Math {\n  static add(a, b) { return a + b; }\n  static Utils = class {\n    static double(n) { return n * 2; }\n  }\n}\nMath.Utils.double(5); // 10"
             },
             {
-                title: "Wait / Delay",
-                code: `const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-// Usage (inside async function)
-await wait(2000);
-console.log("2 seconds later");`
+                "title": "Wait / Delay",
+                "code": "const wait = ms => new Promise(r => setTimeout(r, ms));\n\nawait wait(2000);\nconsole.log(\"2 seconds later\");"
             },
             {
-                title: "Simple Fetch",
-                code: `async function get(url, type = "json") {
-  const res = await fetch(url);
-  return await res[type]();
-}
-
-// Usage
-get("https://example.com/data.json").then(data => console.log(data));`
+                "title": "Simple Fetch",
+                "code": "async function get(url, type = \"json\") {\n  const res = await fetch(url);\n  return await res[type]();\n}\n\nget(\"data.json\").then(console.log);"
             },
             {
-                title: ".then() & .catch()",
-                code: `fetch("https://example.com/data.json")
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(err => console.error("Fetch failed:", err));`
+                "title": ".then() & .catch()",
+                "code": "fetch(\"https://api.example.com/data\")\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(\"Failed:\", err));"
             },
             {
-                title: "Event Listeners",
-                code: `// Common events
-click, dblclick, mousedown, mouseup, mouseenter, mouseleave
-keydown, keyup, input, change, focus, blur
-submit, resize, scroll, load, DOMContentLoaded
-pointerdown, touchstart, dragstart, drop
-
-// Adding a listener
-element.addEventListener("click", handlerFunction);`
+                "title": "Event Listeners",
+                "code": "// Common events\nclick, dblclick, keydown, input, change, submit, scroll, resize\n\n// Add listener\nelement.addEventListener(\"click\", handler);"
             },
             {
-                title: "Find element(s)",
-                code: `// By ID
-document.getElementById("myId");
-
-// By class (returns HTMLCollection)
-document.getElementsByClassName("myClass");
-
-// By tag (returns HTMLCollection)
-document.getElementsByTagName("div");
-
-// Modern (returns NodeList)
-document.querySelector(".myClass");        // first match
-document.querySelectorAll(".myClass");     // all matches`
+                "title": "Find element(s)",
+                "code": "// By ID\ndocument.getElementById(\"id\");\n\n// Modern selectors\ndocument.querySelector(\".class\");     // first\ndocument.querySelectorAll(\"div\");     // all"
             },
             {
-                title: ".createElement() & append",
-                code: `const parent = document.createElement("div");
-const child = document.createElement("div");
-
-parent.id = "parent";
-child.id = "child";
-child.innerText = "I am a child!";
-
-parent.appendChild(child);
-document.body.appendChild(parent);`
+                "title": ".createElement() & append",
+                "code": "const div = document.createElement(\"div\");\ndiv.innerText = \"Hello!\";\ndiv.id = \"greeting\";\ndocument.body.appendChild(div);"
             }
         ];
-
 
         const sections = [];
         const links = [];
@@ -291,25 +354,16 @@ document.body.appendChild(parent);`
             h2.id = id;
             h2.textContent = sec.title;
 
-            const pre1 = document.createElement("pre");
-            const code1 = document.createElement("code");
-            code1.className = "language-javascript";
-            code1.textContent = sec.code;
-            pre1.appendChild(code1);
+            const pre = document.createElement("pre");
+            const code = document.createElement("code");
+            code.className = "language-javascript";
+            code.textContent = sec.code;
+            pre.appendChild(code);
 
             const wrapper = document.createElement("div");
             wrapper.className = "section";
             wrapper.appendChild(h2);
-            wrapper.appendChild(pre1);
-
-            if (sec.code2) {
-                const pre2 = document.createElement("pre");
-                const code2 = document.createElement("code");
-                code2.className = "language-javascript";
-                code2.textContent = sec.code2;
-                pre2.appendChild(code2);
-                wrapper.appendChild(pre2);
-            }
+            wrapper.appendChild(pre);
 
             const link = document.createElement("a");
             link.href = "javascript:void(0)";
@@ -317,68 +371,73 @@ document.body.appendChild(parent);`
             link.dataset.target = id;
             nav.appendChild(link);
 
-            sections.push({wrapper, h2, id});
+            sections.push({ wrapper, h2, id });
             links.push(link);
         });
 
         function renderAll() {
             content.innerHTML = "";
             sections.forEach(s => content.appendChild(s.wrapper));
-            links.forEach(a => a.classList.remove("dimmed"));
+            links.forEach(l => l.classList.remove("dimmed"));
             Prism.highlightAllUnder(content);
         }
 
         function renderSearch(matches) {
             content.innerHTML = "";
-            if (matches.length === 0) {
-                content.innerHTML = "<h2 style='text-align:center;opacity:0.7'>Geen sectie gevonden</h2>";
-                links.forEach(a => a.classList.add("dimmed"));
+            if (!matches.length) {
+                content.innerHTML = "<h2 style='text-align:center;opacity:0.7;margin-top:100px'>No sections found</h2>";
+                links.forEach(l => l.classList.add("dimmed"));
                 return;
             }
+
             matches.forEach(s => content.appendChild(s.wrapper));
+
             if (matches.length < sections.length) {
-                const divider = document.createElement("hr");
-                divider.className = "divider";
-                content.appendChild(divider);
-                const otherTitle = document.createElement("h2");
-                otherTitle.textContent = "Overige secties";
-                content.appendChild(otherTitle);
-                const other = document.createElement("div");
-                other.className = "other-sections";
-                sections.forEach(s => !matches.includes(s) && other.appendChild(s.wrapper.cloneNode(true)));
-                content.appendChild(other);
+                const hr = Object.assign(document.createElement("hr"), { className: "divider" });
+                const title = Object.assign(document.createElement("h2"), { textContent: "Other sections" });
+                const container = document.createElement("div");
+                container.className = "other-sections";
+                sections.forEach(s => !matches.includes(s) && container.appendChild(s.wrapper.cloneNode(true)));
+
+                content.appendChild(hr);
+                content.appendChild(title);
+                content.appendChild(container);
             }
+
             links.forEach(link => {
-                const isMatch = matches.some(m => m.id === link.dataset.target);
-                link.classList.toggle("dimmed", !isMatch);
+                const active = matches.some(m => m.id === link.dataset.target);
+                link.classList.toggle("dimmed", !active);
             });
+
             Prism.highlightAllUnder(content);
         }
 
-        function updateActive() {
+        function updateActiveSection() {
             let best = null;
-            let bestDist = Infinity;
+            let closest = Infinity;
+
             sections.forEach(s => {
                 const rect = s.h2.getBoundingClientRect();
-                const dist = Math.abs(rect.top - 120);
-                if (rect.top <= 300 && dist < bestDist) {
-                    bestDist = dist;
+                const distance = Math.abs(rect.top - 140);
+                if (rect.top <= 320 && distance < closest) {
+                    closest = distance;
                     best = s;
                 }
             });
+
             if (!best) return;
 
             links.forEach(link => {
-                const active = link.dataset.target === best.id;
-                link.classList.toggle("active", active);
-                if (active) link.scrollIntoView({ behavior: "smooth", block: "center" });
+                link.classList.toggle("active", link.dataset.target === best.id);
+                // No auto-scroll in sidebar – user controls it
             });
         }
 
+        // Navigation
         links.forEach(link => {
             link.addEventListener("click", () => {
                 const target = document.getElementById(link.dataset.target);
-                window.scrollTo({ top: target.offsetTop - 100, behavior: "smooth" });
+                window.scrollTo({ top: target.offsetTop - 110, behavior: "smooth" });
                 if (window.innerWidth <= 860) {
                     sidebar.classList.remove("active");
                     document.getElementById("menu-toggle").classList.remove("active");
@@ -386,43 +445,36 @@ document.body.appendChild(parent);`
             });
         });
 
+        // Mobile menu
         document.getElementById("menu-toggle").addEventListener("click", () => {
             sidebar.classList.toggle("active");
             document.getElementById("menu-toggle").classList.toggle("active");
         });
 
-        let searching = false;
+        // Search
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) return renderAll();
+            const matches = sections.filter(s => s.h2.textContent.toLowerCase().includes(query));
+            renderSearch(matches);
+            if (matches.length) window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // Ctrl+F → focus search
         document.addEventListener("keydown", e => {
             if (e.key === "f" && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
-                if (searching) return;
-                searching = true;
-
-                const query = prompt("Zoek in secties:").trim();
-                if (!query) {
-                    renderAll();
-                    updateActive();
-                    searching = false;
-                    return;
-                }
-
-                const matches = sections.filter(s => s.h2.textContent.toLowerCase().includes(query.toLowerCase()));
-                renderSearch(matches);
-
-                if (matches.length > 0) {
-                    setTimeout(() => {
-                        window.scrollTo({ top: matches[0].h2.offsetTop - 100, behavior: "smooth" });
-                        updateActive();
-                    }, 100);
-                }
-                searching = false;
+                searchInput.focus();
+                searchInput.select();
             }
         });
 
-        window.addEventListener("scroll", updateActive);
+        // Scroll handler
+        window.addEventListener("scroll", updateActiveSection);
 
+        // Init
         renderAll();
-        updateActive();
+        updateActiveSection();
     });
 </script>
 </body>
