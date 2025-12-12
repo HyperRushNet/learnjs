@@ -77,100 +77,100 @@
 
         const sectionsData = [
             {
-                title: "1) Variables",
+                title: "Variables",
                 code: 'const varName = "data" // Cannot be changed.\nlet varName = "data" // Can be changed.\n// ============\nlet varName; // Var declaration\nvarName = "data" // Var assignment.'
             },
             {
-                title: "2) Get JSON keys & values",
+                title: "Get JSON keys & values",
                 code: 'Object.entries(data).forEach(([key, value]) => console.log(key, value))'
             },
             {
-                title: "3) Event Listeners",
+                title: "Event Listeners",
                 code: '// Common events\nclick, dblclick, mousedown, mouseup, mouseenter, mouseleave\nkeydown, keyup, input, change, focus, blur\nsubmit, resize, scroll, load, DOMContentLoaded\npointerdown, touchstart, dragstart, drop',
                 code2: 'element.addEventListener("click", handler)'
             },
             {
-                title: "4) Simple Fetch",
+                title: "Simple Fetch",
                 code: 'async function get(url, type = "json") {\n const res = await fetch(url);\n return await res[type]();\n}\n// Usage\nget("data.json").then(data => console.log(data))'
             },
             {
-                title: "5) For Loops",
+                title: "For Loops",
                 code: 'for (let i = 0; i < 10; i++) {\n console.log(i);\n}'
             },
             {
-                title: "6) While Loops",
+                title: "While Loops",
                 code: 'while (x < 5) {\n alert("X < 5! X = " + x);\n}'
             },
             {
-                title: "7) If / Else",
+                title: "If / Else",
                 code: 'if (score >= 90) console.log("A");\nelse if (score >= 75) console.log("B");\nelse console.log("C");'
             },
             {
-                title: "8) Arrays",
+                title: "Arrays",
                 code: 'const fruits = ["apple", "banana", "cherry"];\nfruits.forEach(f => console.log(f));'
             },
             {
-                title: "9) Variables",
+                title: "Variables",
                 code: 'let mutable = "changes ok";\nconst constant = "never changes";\nvar oldWay = "avoid if possible";'
             },
             {
-                title: "10) Functions",
+                title: "Functions",
                 code: 'function greet(name) {\n return `Hello, ${name}!`;\n}\n// Arrow\nconst greet = name => `Hello, ${name}!`;'
             },
             {
-                title: "11) Objects",
+                title: "Objects",
                 code: 'const person = {\n name: "Alice",\n greet() { console.log(`Hi, I\'m ${this.name}`); }\n};\nperson.greet();'
             },
             {
-                title: "12) Template Literals",
+                title: "Template Literals",
                 code: 'const name = "Bob";\nconst msg = `Hello, ${name.toUpperCase()}!`;'
             },
             {
-                title: "13) Math & Random",
+                title: "Math & Random",
                 code: '// Random int 0-9\nMath.floor(Math.random() * 10)\n\n// Random between min-max\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;'
             },
             {
-                title: "14) Wait / Delay",
+                title: "Wait / Delay",
                 code: 'const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log("2 seconds later");'
             },
             {
-                title: "15) Classes",
+                title: "Classes",
                 code: 'class Person {\n constructor(name, age) { this.name = name; this.age = age; }\n greet() { console.log(`I\'m ${this.name}, ${this.age}yo`); }\n}\nnew Person("Alice", 25).greet();'
             },
             {
-                title: "16) Nested Classes",
+                title: "Nested Classes",
                 code: 'class Math {\n static add(a, b) { return a + b; }\n static Utils = class { static double(n) { return n * 2; } }\n}\nMath.Utils.double(5); // 10'
             },
             {
-                title: "17) .padStart / .padEnd",
+                title: ".padStart / .padEnd",
                 code: '"5".padStart(3, "0") // "005"\n"Hi".padEnd(10, ".") // "Hi........"'
             },
             {
-                title: "18) .createElement()",
+                title: ".createElement()",
                 code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'
             },
             {
-                title: "19) .includes()",
+                title: ".includes()",
                 code: 'const array = ["Value 1","Value 2", "Value 3"];\nif(array.includes("Value 1")){ /* JS code here */ }'
             },
             {
-                title: "20) .push()",
+                title: ".push()",
                 code: 'const array = ["Item 1","Item 2"]\narray.push("Item 3") // Adds "Item 3" to array.'
             },
             {
-                title: "21) .trim()",
+                title: ".trim()",
                 code: 'const variable = "    Hello World!    "\nconsole.log(variable.trim()) // "Hello World!"'
             },
             {
-                title: "22) .then()",
+                title: ".then()",
                 code: 'fetch("https://hyperrushnet.github.io/assets/json/games.json") // Promise is made.\n  .then(response => response.json()) // response.json() extracts JSON from the fetch response\n  .then(data => { console.log(data) }) // data receives the JSON from the previous .then and is used in the function.'
             },
             {
-                title: "23) .catch(error)",
-                code: '// (Promise here, like 22.)\n.then(data => {console.log(data)})\n   .catch(error => { /* JS code here */ });'
+                title: ".catch(error)",
+                code: '// (Promise here, like with fetch.)\n.then(data => {console.log(data)})\n   .catch(error => { /* JS code here */ });'
             },
             {
-                title: "24. Find element(s)",
+                title: "Find element(s)",
                 code: `// Get element by ID
 document.getElementById("ID_HERE")
 
@@ -181,12 +181,57 @@ document.getElementsByClassName("CLASS_HERE")
 document.getElementsByTagName("div/li/...")`
             },
             {
-                title: "25. arrayVar.push()",
+                title: "arrayVar.push()",
                 code: `// Declare empty array
 let arrayVar = [];
 
 // Push text to arrayVar array.
 arrayVar.push("Hello world!")`
+            },
+            {
+                title: ".forEach()",
+                code: `const entries = [
+    ["name", "HyperRush"],
+    ["score", 100],
+    ["online", true]
+];
+
+// forEach gives you one element of the array per loop.
+// That element is an array with 2 items.
+// Using [key, value] immediately extracts those two items.
+
+entries.forEach(([key, value]) => {
+    console.log("key:", key, "| value:", value);
+});
+
+// This prints:
+// key: name   | value: HyperRush
+// key: score  | value: 100
+// key: online | value: true
+`
+            },
+            {
+                title: "Object.entries()",
+                code: `// Object.entries converts an object into array pairs.
+// Each pair is: [key, value]
+
+const data = {
+    name: "HyperRush",
+    score: 100,
+    online: true
+};
+
+const entries = Object.entries(data);
+
+console.log(entries);
+
+// This prints:
+// [
+//   ["name", "HyperRush"],
+//   ["score", 100],
+//   ["online", true]
+// ]
+`
             }
         ];
 
