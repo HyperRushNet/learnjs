@@ -78,160 +78,205 @@
         const sectionsData = [
             {
                 title: "Variables",
-                code: 'const varName = "data" // Cannot be changed.\nlet varName = "data" // Can be changed.\n// ============\nlet varName; // Var declaration\nvarName = "data" // Var assignment.'
-            },
-            {
-                title: "Get JSON keys & values",
-                code: 'Object.entries(data).forEach(([key, value]) => console.log(key, value))'
-            },
-            {
-                title: "Event Listeners",
-                code: '// Common events\nclick, dblclick, mousedown, mouseup, mouseenter, mouseleave\nkeydown, keyup, input, change, focus, blur\nsubmit, resize, scroll, load, DOMContentLoaded\npointerdown, touchstart, dragstart, drop',
-                code2: 'element.addEventListener("click", handler)'
-            },
-            {
-                title: "Simple Fetch",
-                code: 'async function get(url, type = "json") {\n const res = await fetch(url);\n return await res[type]();\n}\n// Usage\nget("data.json").then(data => console.log(data))'
-            },
-            {
-                title: "For Loops",
-                code: 'for (let i = 0; i < 10; i++) {\n console.log(i);\n}'
-            },
-            {
-                title: "While Loops",
-                code: 'while (x < 5) {\n alert("X < 5! X = " + x);\n}'
-            },
-            {
-                title: "If / Else",
-                code: 'if (score >= 90) console.log("A");\nelse if (score >= 75) console.log("B");\nelse console.log("C");'
-            },
-            {
-                title: "Arrays",
-                code: 'const fruits = ["apple", "banana", "cherry"];\nfruits.forEach(f => console.log(f));'
-            },
-            {
-                title: "Variables",
-                code: 'let mutable = "changes ok";\nconst constant = "never changes";\nvar oldWay = "avoid if possible";'
-            },
-            {
-                title: "Functions",
-                code: 'function greet(name) {\n return `Hello, ${name}!`;\n}\n// Arrow\nconst greet = name => `Hello, ${name}!`;'
-            },
-            {
-                title: "Objects",
-                code: 'const person = {\n name: "Alice",\n greet() { console.log(`Hi, I\'m ${this.name}`); }\n};\nperson.greet();'
+                code: `const varName = "data"; // Cannot be reassigned
+let varName = "data";     // Can be reassigned
+
+// Declaration vs assignment
+let varName;      // Declaration
+varName = "data"; // Assignment`
             },
             {
                 title: "Template Literals",
-                code: 'const name = "Bob";\nconst msg = `Hello, ${name.toUpperCase()}!`;'
+                code: `const name = "Bob";
+const msg = \`Hello, \${name.toUpperCase()}!\`; // "Hello, BOB!"`
             },
             {
-                title: "Math & Random",
-                code: '// Random int 0-9\nMath.floor(Math.random() * 10)\n\n// Random between min-max\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;'
-            },
-            {
-                title: "Wait / Delay",
-                code: 'const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log("2 seconds later");'
-            },
-            {
-                title: "Classes",
-                code: 'class Person {\n constructor(name, age) { this.name = name; this.age = age; }\n greet() { console.log(`I\'m ${this.name}, ${this.age}yo`); }\n}\nnew Person("Alice", 25).greet();'
-            },
-            {
-                title: "Nested Classes",
-                code: 'class Math {\n static add(a, b) { return a + b; }\n static Utils = class { static double(n) { return n * 2; } }\n}\nMath.Utils.double(5); // 10'
-            },
-            {
-                title: ".padStart / .padEnd",
-                code: '"5".padStart(3, "0") // "005"\n"Hi".padEnd(10, ".") // "Hi........"'
-            },
-            {
-                title: ".createElement()",
-                code: 'const parentDiv = document.createElement("div");\nconst childDiv = document.createElement("div");\n\nparentDiv.id = "parent";\nchildDiv.id = "child";\n\ndocument.body.appendChild(parentDiv);\nparentDiv.innerText = "Hi";\nchildDiv.innerText = "I am a child!";\nparentDiv.appendChild(childDiv);'
-            },
-            {
-                title: ".includes()",
-                code: 'const array = ["Value 1","Value 2", "Value 3"];\nif(array.includes("Value 1")){ /* JS code here */ }'
-            },
-            {
-                title: ".push()",
-                code: 'const array = ["Item 1","Item 2"]\narray.push("Item 3") // Adds "Item 3" to array.'
-            },
-            {
-                title: ".trim()",
-                code: 'const variable = "    Hello World!    "\nconsole.log(variable.trim()) // "Hello World!"'
-            },
-            {
-                title: ".then()",
-                code: 'fetch("https://hyperrushnet.github.io/assets/json/games.json") // Promise is made.\n  .then(response => response.json()) // response.json() extracts JSON from the fetch response\n  .then(data => { console.log(data) }) // data receives the JSON from the previous .then and is used in the function.'
-            },
-            {
-                title: ".catch(error)",
-                code: '// (Promise here, like with fetch.)\n.then(data => {console.log(data)})\n   .catch(error => { /* JS code here */ });'
-            },
-            {
-                title: "Find element(s)",
-                code: `// Get element by ID
-document.getElementById("ID_HERE")
+                title: "Functions",
+                code: `// Regular function
+function greet(name) {
+  return \`Hello, \${name}!\`;
+}
 
-// Get element by class
-document.getElementsByClassName("CLASS_HERE")
-
-// Get all elements of type, to JSON arr.
-document.getElementsByTagName("div/li/...")`
+// Arrow function
+const greet = name => \`Hello, \${name}!\`;`
             },
             {
-                title: "arrayVar.push()",
-                code: `// Declare empty array
-let arrayVar = [];
-
-// Push text to arrayVar array.
-arrayVar.push("Hello world!")`
-            },
-            {
-                title: ".forEach()",
-                code: `const entries = [
-    ["name", "HyperRush"],
-    ["score", 100],
-    ["online", true]
-];
-
-// forEach gives you one element of the array per loop.
-// That element is an array with 2 items.
-// Using [key, value] immediately extracts those two items.
-
-entries.forEach(([key, value]) => {
-    console.log("key:", key, "| value:", value);
-});
-
-// This prints:
-// key: name   | value: HyperRush
-// key: score  | value: 100
-// key: online | value: true
-`
+                title: "Objects",
+                code: `const person = {
+  name: "Alice",
+  greet() {
+    console.log(\`Hi, I'm \${this.name}\`);
+  }
+};
+person.greet();`
             },
             {
                 title: "Object.entries()",
-                code: `// Object.entries converts an object into array pairs.
-// Each pair is: [key, value]
-
-const data = {
-    name: "HyperRush",
-    score: 100,
-    online: true
-};
-
+                code: `const data = { name: "HyperRush", score: 100, online: true };
 const entries = Object.entries(data);
-
 console.log(entries);
+// → [["name", "HyperRush"], ["score", 100], ["online", true]]`
+            },
+            {
+                title: "Get JSON keys & values",
+                code: `Object.entries(data).forEach(([key, value]) => {
+  console.log(key, "→", value);
+});`
+            },
+            {
+                title: "Arrays",
+                code: `const fruits = ["apple", "banana", "cherry"];
+fruits.forEach(f => console.log(f));`
+            },
+            {
+                title: ".forEach()",
+                code: `const entries = [["name", "HyperRush"], ["score", 100], ["online", true]];
 
-// This prints:
-// [
-//   ["name", "HyperRush"],
-//   ["score", 100],
-//   ["online", true]
-// ]
-`
+entries.forEach(([key, value]) => {
+  console.log(\`key: \${key} | value: \${value}\`);
+});`
+            },
+            {
+                title: ".push()",
+                code: `let array = ["Item 1", "Item 2"];
+array.push("Item 3"); // → ["Item 1", "Item 2", "Item 3"]`
+            },
+            {
+                title: ".includes()",
+                code: `const array = ["Value 1", "Value 2", "Value 3"];
+if (array.includes("Value 1")) {
+  console.log("Found it!");
+}`
+            },
+            {
+                title: ".trim()",
+                code: `const str = "   Hello World!   ";
+console.log(str.trim()); // "Hello World!"`
+            },
+            {
+                title: ".padStart / .padEnd",
+                code: `"5".padStart(3, "0");   // "005"
+"Hi".padEnd(10, ".");   // "Hi........"`
+            },
+            {
+                title: "Math & Random",
+                code: `// Random int from 0–9
+Math.floor(Math.random() * 10);
+
+// Random int between min (inclusive) and max (inclusive)
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+rand(5, 10); // e.g. 7`
+            },
+            {
+                title: "If / Else",
+                code: `const score = 85;
+
+if (score >= 90) console.log("A");
+else if (score >= 75) console.log("B");
+else console.log("C");`
+            },
+            {
+                title: "For Loops",
+                code: `for (let i = 0; i < 10; i++) {
+  console.log(i);
+}`
+            },
+            {
+                title: "While Loops",
+                code: `let x = 0;
+while (x < 5) {
+  console.log("X < 5! X =", x);
+  x++;
+}`
+            },
+            {
+                title: "Classes",
+                code: `class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log(\`I'm \${this.name}, \${this.age} years old\`);
+  }
+}
+
+new Person("Alice", 25).greet();`
+            },
+            {
+                title: "Nested/Static Classes",
+                code: `class Math {
+  static add(a, b) { return a + b; }
+  static Utils = class {
+    static double(n) { return n * 2; }
+  }
+}
+
+Math.Utils.double(5); // 10`
+            },
+            {
+                title: "Wait / Delay",
+                code: `const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+// Usage (inside async function)
+await wait(2000);
+console.log("2 seconds later");`
+            },
+            {
+                title: "Simple Fetch",
+                code: `async function get(url, type = "json") {
+  const res = await fetch(url);
+  return await res[type]();
+}
+
+// Usage
+get("https://example.com/data.json").then(data => console.log(data));`
+            },
+            {
+                title: ".then() & .catch()",
+                code: `fetch("https://example.com/data.json")
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error("Fetch failed:", err));`
+            },
+            {
+                title: "Event Listeners",
+                code: `// Common events
+click, dblclick, mousedown, mouseup, mouseenter, mouseleave
+keydown, keyup, input, change, focus, blur
+submit, resize, scroll, load, DOMContentLoaded
+pointerdown, touchstart, dragstart, drop
+
+// Adding a listener
+element.addEventListener("click", handlerFunction);`
+            },
+            {
+                title: "Find element(s)",
+                code: `// By ID
+document.getElementById("myId");
+
+// By class (returns HTMLCollection)
+document.getElementsByClassName("myClass");
+
+// By tag (returns HTMLCollection)
+document.getElementsByTagName("div");
+
+// Modern (returns NodeList)
+document.querySelector(".myClass");        // first match
+document.querySelectorAll(".myClass");     // all matches`
+            },
+            {
+                title: ".createElement() & append",
+                code: `const parent = document.createElement("div");
+const child = document.createElement("div");
+
+parent.id = "parent";
+child.id = "child";
+child.innerText = "I am a child!";
+
+parent.appendChild(child);
+document.body.appendChild(parent);`
             }
         ];
 
