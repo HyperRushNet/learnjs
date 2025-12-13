@@ -358,6 +358,17 @@ let intervalId = setInterval(functionName, 1000 /* Rest time in ms */);
 // Remove interval.
 clearInterval(intervalId);
 let intervalId = null`
+            },
+            {
+                "title": "Destructuring",
+                "code": `const data = "Hello world!";
+
+const [var1, var2, var3] = data.slice
+
+// Becomes:
+const var1 = data.slice[0]; // "H"
+const var2 = data.slice[1]; // "e"
+const var3 = data.slice[2]; // "l"`
             }
         ];
 
