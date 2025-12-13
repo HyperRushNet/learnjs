@@ -377,6 +377,18 @@ const bool = true;
 
 console.log(bool); // true
 console.log(!bool);` // false
+            },
+            {
+                "title": "Audio",
+                "code": `AudioEl = document.getElementById("audioElement")
+
+audioEl.currentTime = 0 // Current time in seconds.
+audioEl.play(); // Plays audio.
+audioEl.pause(); // Pauses audio.
+audioEl.volume = 0.1; // 0 - 1 volume.
+audioEl.loop = true; // True / false (loop audio).
+
+const dur = audioEl.duration; // Full duration in seconds.`
             }
         ];
 
