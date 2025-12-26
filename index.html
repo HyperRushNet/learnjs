@@ -246,151 +246,136 @@
         const searchInput = document.getElementById("search-input");
 
         const sectionsData = [
-            {
-                "title": "Variables",
-                "code": "const name = \"data\";     // Cannot be reassigned\nlet value = \"data\";      // Can be reassigned\n\n// Declaration vs assignment\nlet x;         // Declaration\nx = \"hello\";  // Assignment"
-            },
-            {
-                "title": "Template Literals",
-                "code": "const name = \"Alice\";\nconst greeting = `Hello, ${name.toUpperCase()}!`;\n// → \"Hello, ALICE!\""
-            },
-            {
-                "title": "Functions",
-                "code": "// Regular function\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrow function\nconst greet = name => `Hello, ${name}!`;"
-            },
-            {
-                "title": "Objects",
-                "code": "const person = {\n  name: \"Alice\",\n  greet() {\n    console.log(`Hi, I'm ${this.name}`);\n  }\n};\nperson.greet();"
-            },
-            {
-                "title": "Object.entries()",
-                "code": "const obj = { name: \"HyperRush\", score: 100, online: true };\nconst entries = Object.entries(obj);\nconsole.log(entries);\n// → [[\"name\", 'HyperRush'], [\"score\", 100], [\"online\", true]]"
-            },
-            {
-                "title": "Loop over object keys/values",
-                "code": "Object.entries(obj).forEach(([key, value]) => {\n  console.log(`${key} → ${value}`);\n});"
-            },
-            {
-                "title": "Arrays",
-                "code": "const fruits = [\"apple\", \"banana\", \"cherry\"];\nfruits.forEach(f => console.log(f));"
-            },
-            {
-                "title": ".forEach()",
-                "code": "const pairs = [[\"name\", \"HyperRush\"], [\"score\", 100]];\npairs.forEach(([key, val]) => {\n  console.log(`key: ${key} | value: ${val}`);\n});"
-            },
-            {
-                "title": ".push()",
-                "code": "let arr = [\"A\", \"B\"];\narr.push(\"C\"); // → [\"A\", \"B\", \"C\"]"
-            },
-            {
-                "title": ".includes()",
-                "code": "const list = [\"apple\", \"banana\"];\nif (list.includes(\"apple\")) {\n  console.log(\"Found!\");\n}"
-            },
-            {
-                "title": ".trim()",
-                "code": "const text = \"  Hello World  \";\nconsole.log(text.trim()); // \"Hello World\""
-            },
-            {
-                "title": ".padStart / .padEnd",
-                "code": "\"5\".padStart(4, \"0\");   // \"0005\"\n\"Hi\".padEnd(10, \".\");    // \"Hi........\""
-            },
-            {
-                "title": "Math & Random",
-                "code": "// Random int 0–9\nMath.floor(Math.random() * 10);\n\n// Random int min–max (inclusive)\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;\nrand(1, 100);"
-            },
-            {
-                "title": "If / Else",
-                "code": "const score = 88;\nif (score >= 90) console.log(\"A\");\nelse if (score >= 75) console.log(\"B\");\nelse console.log(\"C\");"
-            },
-            {
-                "title": "For Loops",
-                "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}"
-            },
-            {
-                "title": "While Loops",
-                "code": "let i = 0;\nwhile (i < 5) {\n  console.log(\"Count:\", i);\n  i++;\n}"
-            },
-            {
-                "title": "Classes",
-                "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n  greet() {\n    console.log(`I'm ${this.name}, ${this.age}yo`);\n  }\n}\nnew Person(\"Alice\", 25).greet();"
-            },
-            {
-                "title": "Static & Nested Classes",
-                "code": "class Math {\n  static add(a, b) { return a + b; }\n  static Utils = class {\n    static double(n) { return n * 2; }\n  }\n}\nMath.Utils.double(5); // 10"
-            },
-            {
-                "title": "Wait / Delay",
-                "code": "const wait = ms => new Promise(r => setTimeout(r, ms));\n\nawait wait(2000);\nconsole.log(\"2 seconds later\");"
-            },
-            {
-                "title": "Simple Fetch",
-                "code": "async function get(url, type = \"json\") {\n  const res = await fetch(url);\n  return await res[type]();\n}\n\nget(\"data.json\").then(console.log);"
-            },
-            {
-                "title": ".then() & .catch()",
-                "code": "fetch(\"https://api.example.com/data\")\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(\"Failed:\", err));"
-            },
-            {
-                "title": "Event Listeners",
-                "code": "// Common events\nclick, dblclick, keydown, input, change, submit, scroll, resize\n\n// Add listener\nelement.addEventListener(\"click\", handler);"
-            },
-            {
-                "title": "Find element(s)",
-                "code": "// By ID\ndocument.getElementById(\"id\");\n\n// Modern selectors\ndocument.querySelector(\".class\");     // first\ndocument.querySelectorAll(\"div\");     // all"
-            },
-            {
-                "title": ".createElement() & append",
-                "code": "const div = document.createElement(\"div\");\ndiv.innerText = \"Hello!\";\ndiv.id = \"greeting\";\ndocument.body.appendChild(div);"
-            },
-            {
-                "title": ".split()",
-                "code": `const message = "Hello, world!"\nconsole.log(message.split(",")) // ["Hello", " world!"]`
-            },
-            {
-                "title": "Intervals",
-                "code": `function functionName(){ /* JS code here */ }
-
-let intervalId = null;
-
-// Create interval.
-let intervalId = setInterval(functionName, 1000 /* Rest time in ms */);
-
-// Remove interval.
-clearInterval(intervalId);
-let intervalId = null`
-            },
-            {
-                "title": "Destructuring",
-                "code": `const data = "Hello world!";
-
-const [var1, var2, var3] = data.slice
-
-// Becomes:
-const var1 = data.slice[0]; // "H"
-const var2 = data.slice[1]; // "e"
-const var3 = data.slice[2]; // "l"`
-            },
-            {
-                "title": "! Operator (logical NOT)",
-                "code": `// In booleans (true/false)
-const bool = true;
-
-console.log(bool); // true
-console.log(!bool);` // false
-            },
-            {
-                "title": "Audio",
-                "code": `AudioEl = document.getElementById("audioElement")
-
-audioEl.currentTime = 0 // Current time in seconds.
-audioEl.play(); // Plays audio.
-audioEl.pause(); // Pauses audio.
-audioEl.volume = 0.1; // 0 - 1 volume.
-audioEl.loop = true; // True / false (loop audio).
-
-const dur = audioEl.duration; // Full duration in seconds.`
-            }
-        ];
+                {
+                    "title": "Variables",
+                    "code": "const name = \"data\";     // Cannot be reassigned\nlet value = \"data\";      // Can be reassigned\n\n// Declaration vs assignment\nlet x;         // Declaration\nx = \"hello\";  // Assignment"
+                },
+                {
+                    "title": "Template Literals",
+                    "code": "const name = \"Alice\";\nconst greeting = `Hello, ${name.toUpperCase()}!`;\n// → \"Hello, ALICE!\""
+                },
+                {
+                    "title": "Functions",
+                    "code": "// Regular function\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrow function\nconst greet = name => `Hello, ${name}!`;"
+                },
+                {
+                    "title": "Objects",
+                    "code": "const person = {\n  name: \"Alice\",\n  greet() {\n    console.log(`Hi, I'm ${this.name}`);\n  }\n};\nperson.greet();"
+                },
+                {
+                    "title": "Object.entries()",
+                    "code": "const obj = { name: \"HyperRush\", score: 100, online: true };\nconst entries = Object.entries(obj);\nconsole.log(entries);\n// → [[\"name\", 'HyperRush'], [\"score\", 100], [\"online\", true]]"
+                },
+                {
+                    "title": "Loop over object keys/values",
+                    "code": "Object.entries(obj).forEach(([key, value]) => {\n  console.log(`${key} → ${value}`);\n});"
+                },
+                {
+                    "title": "Arrays",
+                    "code": "const fruits = [\"apple\", \"banana\", \"cherry\"];\nfruits.forEach(f => console.log(f));"
+                },
+                {
+                    "title": "Remainder Operator (%)",
+                    "code": "// % gives the remainder of a division\nconsole.log(10 % 3);  // 1\nconsole.log(15 % 5);  // 0\nconsole.log(-7 % 4);  // -3\nconsole.log(7 % -4);  // 3"
+                },
+                {
+                    "title": ".forEach()",
+                    "code": "const pairs = [[\"name\", \"HyperRush\"], [\"score\", 100]];\npairs.forEach(([key, val]) => {\n  console.log(`key: ${key} | value: ${val}`);\n});"
+                },
+                {
+                    "title": ".push()",
+                    "code": "let arr = [\"A\", \"B\"];\narr.push(\"C\"); // → [\"A\", \"B\", \"C\"]"
+                },
+                {
+                    "title": ".includes()",
+                    "code": "const list = [\"apple\", \"banana\"];\nif (list.includes(\"apple\")) {\n  console.log(\"Found!\");\n}"
+                },
+                {
+                    "title": ".trim()",
+                    "code": "const text = \"  Hello World  \";\nconsole.log(text.trim()); // \"Hello World\""
+                },
+                {
+                    "title": ".padStart / .padEnd",
+                    "code": "\"5\".padStart(4, \"0\");   // \"0005\"\n\"Hi\".padEnd(10, \".\");    // \"Hi........\""
+                },
+                {
+                    "title": "Math & Random",
+                    "code": "// Random int 0–9\nMath.floor(Math.random() * 10);\n\n// Random int min–max (inclusive)\nconst rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;\nrand(1, 100);"
+                },
+                {
+                    "title": "If / Else",
+                    "code": "const score = 88;\nif (score >= 90) console.log(\"A\");\nelse if (score >= 75) console.log(\"B\");\nelse console.log(\"C\");"
+                },
+                {
+                    "title": "For Loops",
+                    "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}"
+                },
+                {
+                    "title": "While Loops",
+                    "code": "let i = 0;\nwhile (i < 5) {\n  console.log(\"Count:\", i);\n  i++;\n}"
+                },
+                {
+                    "title": "Classes",
+                    "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n  greet() {\n    console.log(`I'm ${this.name}, ${this.age}yo`);\n  }\n}\nnew Person(\"Alice\", 25).greet();"
+                },
+                {
+                    "title": "Static & Nested Classes",
+                    "code": "class Math {\n  static add(a, b) { return a + b; }\n  static Utils = class {\n    static double(n) { return n * 2; }\n  }\n}\nMath.Utils.double(5); // 10"
+                },
+                {
+                    "title": "Wait / Delay",
+                    "code": "const wait = ms => new Promise(r => setTimeout(r, ms));\nawait wait(2000);\nconsole.log(\"2 seconds later\");"
+                },
+                {
+                    "title": "Simple Fetch",
+                    "code": "async function get(url, type = \"json\") {\n  const res = await fetch(url);\n  return await res[type]();\n}\nget(\"data.json\").then(console.log);"
+                },
+                {
+                    "title": ".then() & .catch()",
+                    "code": "fetch(\"https://api.example.com/data\")\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(\"Failed:\", err));"
+                },
+                {
+                    "title": "Event Listeners",
+                    "code": "// Common events\nclick, dblclick, keydown, input, change, submit, scroll, resize\n\n// Add listener\nelement.addEventListener(\"click\", handler);"
+                },
+                {
+                    "title": "Find element(s)",
+                    "code": "// By ID\ndocument.getElementById(\"id\");\n\n// Modern selectors\ndocument.querySelector(\".class\");     // first\ndocument.querySelectorAll(\"div\");     // all"
+                },
+                {
+                    "title": ".createElement() & append",
+                    "code": "const div = document.createElement(\"div\");\ndiv.innerText = \"Hello!\";\ndiv.id = \"greeting\";\ndocument.body.appendChild(div);"
+                },
+                {
+                    "title": ".split()",
+                    "code": "const message = \"Hello, world!\"\nconsole.log(message.split(\",\")) // [\"Hello\", \" world!\"]"
+                },
+                {
+                    "title": "Intervals",
+                    "code": "function functionName(){ /* JS code here */ }\n\nlet intervalId = null;\n\n// Create interval.\nlet intervalId = setInterval(functionName, 1000 /* Rest time in ms */);\n\n// Remove interval.\nclearInterval(intervalId);\nlet intervalId = null"
+                },
+                {
+                    "title": "Destructuring",
+                    "code": "const data = \"Hello world!\";\n\nconst [var1, var2, var3] = data.slice\n\n// Becomes:\nconst var1 = data.slice[0]; // \"H\"\nconst var2 = data.slice[1]; // \"e\"\nconst var3 = data.slice[2]; // \"l\""
+                },
+                {
+                    "title": "! Operator (logical NOT)",
+                    "code": "// In booleans (true/false)\nconst bool = true;\n\nconsole.log(bool); // true\nconsole.log(!bool); // false"
+                },
+                {
+                    "title": "Audio",
+                    "code": "AudioEl = document.getElementById(\"audioElement\")\n\naudioEl.currentTime = 0 // Current time in seconds.\naudioEl.play(); // Plays audio.\naudioEl.pause(); // Pauses audio.\naudioEl.volume = 0.1; // 0 - 1 volume.\naudioEl.loop = true; // True / false (loop audio).\n\nconst dur = audioEl.duration; // Full duration in seconds."
+                },
+                {
+                    "title": "?. & ?? (Optional chaining & Nullish coalescing)",
+                    "code": "const person = {\n  name: \"Alice\",\n  contact: { email: \"name@example.com\" }\n};\n\n// Optional chaining:\nconsole.log(person?.contact?.email);      // \"name@example.com\"\nconsole.log(person?.address?.street);     // undefined, no error\n\n// Nullish coalescing:\nconst street = person?.address?.street ?? \"Unknown\";\nconsole.log(street);                       // \"Unknown\"\n\n// Optional chaining with function:\nconst user = { sayHello: () => \"Hello!\" };\nconsole.log(user.sayHello?.());            // \"Hello!\"\nconsole.log(user.sayGoodbye?.() ?? \"Function does not exist\"); // \"Function does not exist\""
+                },
+                {
+                    "title": "for/of loop",
+                    "code": "const array = [\"a\",\"b\",\"c\"]\nfor(const variableName of array){\n    console.log(variableName); // a, b, c\n}"
+                }
+            ]
+        ;
 
         const sections = [];
         const links = [];
